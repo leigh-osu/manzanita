@@ -1,5 +1,124 @@
-.osu-bg-page-alt-1 {
+#madrone-header-container,
+#madrone-header-container .header-search-block-form {
   background-color: #000 !important;
+}
+
+#madrone-header-container,
+#madrone-header-container .border-neutral-200 {
+  border-color: #666 !important;
+}
+
+.block-system-branding-block .link-purpose-external-icon {
+  display: none !important;
+}
+
+.block__content__site-name,
+.block__content__site-name a,
+.block__content__site-name span,
+.block__content__site-name h1 {
+  color: #fff !important;
+  font-family: "Stratum2Web", serif !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+}
+
+.header-search-block-form input[type=search].form-control, .header-search-block-form input[type=search].form-control:focus {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+.header-search-block-form input[type=search].form-control::placeholder {
+  color: #ccc !important;
+}
+
+#madrone-primary-menu-container,
+#madrone-primary-menu-container ul,
+#madrone-primary-menu-container li,
+.block-superfish,
+.block-superfish ul,
+.block-superfish li,
+.block-group-content-menu,
+.block-group-content-menu ul,
+.block-group-content-menu li {
+  background-color: #000 !important;
+}
+#madrone-primary-menu-container a,
+#madrone-primary-menu-container span,
+#madrone-primary-menu-container a.nav-link,
+#madrone-primary-menu-container span.nav-link,
+.block-superfish a,
+.block-superfish span,
+.block-superfish a.nav-link,
+.block-superfish span.nav-link,
+.block-group-content-menu a,
+.block-group-content-menu span,
+.block-group-content-menu a.nav-link,
+.block-group-content-menu span.nav-link {
+  background-color: transparent !important;
+  color: #fff !important;
+  font-family: "Stratum2Web", serif !important;
+}
+#madrone-primary-menu-container a:hover,
+#madrone-primary-menu-container span:hover,
+#madrone-primary-menu-container a.nav-link:hover,
+#madrone-primary-menu-container span.nav-link:hover,
+#madrone-primary-menu-container .menuparent:hover > a,
+#madrone-primary-menu-container .group-menu-hover > a,
+#madrone-primary-menu-container .group-menu-hover > span,
+#madrone-primary-menu-container .group-menu-hover > ul,
+.block-superfish a:hover,
+.block-superfish span:hover,
+.block-superfish a.nav-link:hover,
+.block-superfish span.nav-link:hover,
+.block-superfish .menuparent:hover > a,
+.block-superfish .group-menu-hover > a,
+.block-superfish .group-menu-hover > span,
+.block-superfish .group-menu-hover > ul,
+.block-group-content-menu a:hover,
+.block-group-content-menu span:hover,
+.block-group-content-menu a.nav-link:hover,
+.block-group-content-menu span.nav-link:hover,
+.block-group-content-menu .menuparent:hover > a,
+.block-group-content-menu .group-menu-hover > a,
+.block-group-content-menu .group-menu-hover > span,
+.block-group-content-menu .group-menu-hover > ul {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+#madrone-primary-menu-container .group-sub-menu > a::after,
+#madrone-primary-menu-container .group-sub-menu > span::after,
+.block-superfish .group-sub-menu > a::after,
+.block-superfish .group-sub-menu > span::after,
+.block-group-content-menu .group-sub-menu > a::after,
+.block-group-content-menu .group-sub-menu > span::after {
+  color: #fff !important;
+}
+
+#madrone-primary-menu-container a.sf-depth-1,
+.block-superfish a.sf-depth-1,
+#group-content-menu > li > a,
+#group-content-menu > li > span {
+  text-transform: uppercase !important;
+}
+
+.layout-container main[role=main] {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+#madrone-breadcrumb-container {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+@media (min-width: 1320px) {
+  #madrone-header-container,
+  #madrone-primary-menu-container,
+  #madrone-highlighted-container,
+  #madrone-footer-container {
+    padding-inline: calc((100% - 1320px) / 2) !important;
+  }
 }
 
 /*# sourceMappingURL=manzanita.css.map */
