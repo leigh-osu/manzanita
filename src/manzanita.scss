@@ -1,6 +1,48 @@
 
 @import './scss/cas_variables';
 
+// osu_card "picbox" view mode: replicate the D7 lp_picbox card. The link title
+// is overlaid in a translucent box across the top of the image, and the whole
+// card (image + overlay) is a single link target.
+.osu-card--picbox {
+  .picbox-container {
+    position: relative;
+  }
+
+  .picbox-item {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  // Whole-card link wraps the image and the overlay headline.
+  .picbox-link {
+    display: block;
+    position: relative;
+    text-decoration: none;
+  }
+
+  // Translucent title bar across the top of the image (D7 used rgba(0,0,0,.6)).
+  .picbox-headline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    padding: 0.5em;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
 
 #madrone-header-container,
 #madrone-header-container .header-search-block-form  {

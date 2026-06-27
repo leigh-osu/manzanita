@@ -1,3 +1,34 @@
+.osu-card--picbox .picbox-container {
+  position: relative;
+}
+.osu-card--picbox .picbox-item {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.osu-card--picbox .picbox-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.osu-card--picbox .picbox-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0.5em;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+}
+.osu-card--picbox img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 #madrone-header-container,
 #madrone-header-container .header-search-block-form {
   background-color: #000 !important;
