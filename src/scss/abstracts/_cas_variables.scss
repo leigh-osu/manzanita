@@ -20,3 +20,8 @@ $osucas-till: #b7a99a;
 $osucas-coastline: #a7aca2;
 $osucas-highdesert: #7a6855;
 $osucas-crater: #8e9089;
+
+// Fixed-width layout: cap the page content at 1320px (Bootstrap's xxl
+// container width) and centre it, while the header, menu and footer
+// background bars stay full-bleed.
+$cas-fixed-width: 1320px;

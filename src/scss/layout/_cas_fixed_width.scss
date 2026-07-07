@@ -1,0 +1,27 @@
+// Fixed-width layout ($cas-fixed-width, set in abstracts/cas_variables).
+
+// Main content + sidebar area: boxed and centred (no background of its own,
+// so a plain max-width is enough).
+.layout-container main[role='main'] {
+  width: 100%;
+  max-width: $cas-fixed-width;
+  margin-inline: auto;
+}
+
+// Breadcrumb renders outside <main>; box it into the same content column.
+#madrone-breadcrumb-container {
+  width: 100%;
+  max-width: $cas-fixed-width;
+  margin-inline: auto;
+}
+
+// Full-bleed bars keep their background edge-to-edge but pad their content in
+// to the same 1320px column once the viewport is wider than the fixed width.
+@media (min-width: #{$cas-fixed-width}) {
+  #madrone-header-container,
+  #madrone-primary-menu-container,
+  #madrone-highlighted-container,
+  #madrone-footer-container {
+    padding-inline: calc((100% - #{$cas-fixed-width}) / 2) !important;
+  }
+}

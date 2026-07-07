@@ -1,0 +1,11 @@
+// Site name in the header: white, all-caps, in Stratum2 Light (the 300 weight
+// of the Stratum2Web family). Overrides .osu-text-osuorange and .fw-bolder.
+.block__content__site-name,
+.block__content__site-name a,
+.block__content__site-name span,
+.block__content__site-name h1 {
+  color: #fff !important;
+  font-family: 'Stratum2Web', serif !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
+}

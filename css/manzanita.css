@@ -1,34 +1,3 @@
-.osu-card--picbox .picbox-container {
-  position: relative;
-}
-.osu-card--picbox .picbox-item {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.osu-card--picbox .picbox-link {
-  display: block;
-  position: relative;
-  text-decoration: none;
-}
-.osu-card--picbox .picbox-headline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  margin: 0;
-  padding: 0.5em;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  text-align: center;
-}
-.osu-card--picbox img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 #madrone-header-container,
 #madrone-header-container .header-search-block-form {
   background-color: #000 !important;
@@ -39,18 +8,8 @@
   border-color: #666 !important;
 }
 
-.block-system-branding-block .link-purpose-external-icon {
-  display: none !important;
-}
-
-.block__content__site-name,
-.block__content__site-name a,
-.block__content__site-name span,
-.block__content__site-name h1 {
-  color: #fff !important;
-  font-family: "Stratum2Web", serif !important;
-  font-weight: 300 !important;
-  text-transform: uppercase !important;
+#madrone-header-container {
+  border-top: 6px solid #d73f09 !important;
 }
 
 .header-search-block-form input[type=search].form-control, .header-search-block-form input[type=search].form-control:focus {
@@ -70,7 +29,7 @@
 .block-group-content-menu,
 .block-group-content-menu ul,
 .block-group-content-menu li {
-  background-color: #000 !important;
+  background-color: #2e2b2a !important;
 }
 #madrone-primary-menu-container a,
 #madrone-primary-menu-container span,
@@ -87,6 +46,9 @@
   background-color: transparent !important;
   color: #fff !important;
   font-family: "Stratum2Web", serif !important;
+  --bs-nav-link-padding-y: 0.4rem;
+  padding-top: 0.4rem !important;
+  padding-bottom: 0.4rem !important;
 }
 #madrone-primary-menu-container a:hover,
 #madrone-primary-menu-container span:hover,
@@ -112,7 +74,7 @@
 .block-group-content-menu .group-menu-hover > a,
 .block-group-content-menu .group-menu-hover > span,
 .block-group-content-menu .group-menu-hover > ul {
-  background-color: #333 !important;
+  background-color: #696361 !important;
   color: #fff !important;
 }
 #madrone-primary-menu-container .group-sub-menu > a::after,
@@ -150,6 +112,50 @@
   #madrone-footer-container {
     padding-inline: calc((100% - 1320px) / 2) !important;
   }
+}
+.osu-card--picbox .picbox-container {
+  position: relative;
+}
+.osu-card--picbox .picbox-item {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.osu-card--picbox .picbox-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+.osu-card--picbox .picbox-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0.5em;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+}
+.osu-card--picbox img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.block-system-branding-block .link-purpose-external-icon {
+  display: none !important;
+}
+
+.block__content__site-name,
+.block__content__site-name a,
+.block__content__site-name span,
+.block__content__site-name h1 {
+  color: #fff !important;
+  font-family: "Stratum2Web", serif !important;
+  font-weight: 300 !important;
+  text-transform: uppercase !important;
 }
 
 /*# sourceMappingURL=manzanita.css.map */
