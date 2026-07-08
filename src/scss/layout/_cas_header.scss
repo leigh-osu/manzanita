@@ -18,7 +18,7 @@
 // recolor above (which sets all border colors to #666 !important on the
 // container), so this later !important wins for the top edge.
 #madrone-header-container {
-  border-top: 6px solid $osu-orange !important;
+  border-top: 6px solid $osuorange !important;
 }
 
 // The actual search input gets a white background from Bootstrap's
