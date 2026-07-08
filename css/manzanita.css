@@ -113,6 +113,94 @@
     padding-inline: calc((100% - 1320px) / 2) !important;
   }
 }
+.cas-bg-osuorange {
+  background-color: #d73f09;
+}
+
+.cas-bg-bucktoothwhite {
+  background-color: #fff;
+}
+
+.cas-bg-trans-white {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.cas-bg-black {
+  background-color: #000;
+}
+
+.cas-bg-trans-black {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.cas-bg-alert-red {
+  background-color: #af292e;
+}
+
+.cas-bg-pine-400 {
+  background-color: #4a773c;
+}
+
+.cas-bg-rogue-wave-400 {
+  background-color: #00859b;
+}
+
+.cas-bg-luminance-400 {
+  background-color: #ffb500;
+}
+
+.cas-bg-stratosphere {
+  background-color: #006a8e;
+}
+
+.cas-bg-pine-200 {
+  background-color: #c4d6a4;
+}
+
+.cas-bg-rogue-wave-200 {
+  background-color: #b8dde1;
+}
+
+.cas-bg-candela {
+  background-color: #fdd26e;
+}
+
+.cas-bg-moondust {
+  background-color: #c6dae7;
+}
+
+.cas-bg-hop-bine {
+  background-color: #aa9d2e;
+}
+
+.cas-bg-rogue-wave-600 {
+  background-color: #0d5257;
+}
+
+.cas-bg-luminance-600 {
+  background-color: #d3832b;
+}
+
+.cas-bg-stratosphere-600 {
+  background-color: #003b5c;
+}
+
+.cas-bg-till {
+  background-color: #b7a99a;
+}
+
+.cas-bg-coastline {
+  background-color: #a7aca2;
+}
+
+.cas-bg-high-desert {
+  background-color: #7a6855;
+}
+
+.cas-bg-crater {
+  background-color: #8e9089;
+}
+
 .osu-card--picbox .picbox-container {
   position: relative;
 }

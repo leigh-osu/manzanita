@@ -1,0 +1,36 @@
+@import '../abstracts/cas_variables';
+
+// Background classes for content migrated from D7 larch (larch-bg-* ->
+// cas-bg-*, mapped in osu_migrations_cas CasLayoutBase). Class names mirror
+// the variable names, hyphenated (e.g. $rogue_wave-400 -> cas-bg-rogue-wave-400).
+// Applied by bootstrap_styles on layout builder section wrappers and blocks.
+$cas-bg-colors: (
+  'osuorange': $osuorange,
+  'bucktoothwhite': $bucktoothwhite,
+  'trans-white': $trans-white,
+  'black': $black,
+  'trans-black': $trans-black,
+  'alert-red': $alert-red,
+  'pine-400': $pine-400,
+  'rogue-wave-400': $rogue_wave-400,
+  'luminance-400': $luminance-400,
+  'stratosphere': $stratosphere,
+  'pine-200': $pine-200,
+  'rogue-wave-200': $rogue_wave-200,
+  'candela': $candela,
+  'moondust': $moondust,
+  'hop-bine': $hop-bine,
+  'rogue-wave-600': $rogue_wave-600,
+  'luminance-600': $luminance-600,
+  'stratosphere-600': $stratosphere-600,
+  'till': $till,
+  'coastline': $coastline,
+  'high-desert': $high-desert,
+  'crater': $crater,
+);
+
+@each $name, $color in $cas-bg-colors {
+  .cas-bg-#{$name} {
+    background-color: $color;
+  }
+}
