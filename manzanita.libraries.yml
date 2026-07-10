@@ -2,8 +2,8 @@ global-styling:
   css:
     base:
       css/manzanita.css: { }
-  # js:
-  #   js/manzanita.js: { }
+  js:
+    js/manzanita.js: { }
   dependencies:
     - core/drupal
     - core/jquery

@@ -1,0 +1,52 @@
+/**
+ * @file
+ * Manzanita theme behaviors.
+ */
+(function (Drupal, once) {
+  'use strict';
+
+  /**
+   * Hero sections: pull the section background up beneath the header ramp.
+   *
+   * A `cas-hero` container class on the first Layout Builder section (see
+   * scss/layout/_cas_hero.scss) means the section background should sit
+   * under the header + primary-menu bars. The height of that stack varies
+   * by breakpoint and page, so measure the real distance from the banner's
+   * top edge to the section and expose it as --cas-hero-pull; the CSS does
+   * the actual pulling and content re-padding.
+   */
+  function casHeroMeasure(target) {
+    const banner = document.querySelector('header[role="banner"]');
+    if (!banner) {
+      return;
+    }
+    // Reset before measuring so re-runs don't compound the offset.
+    target.style.removeProperty('--cas-hero-pull');
+    const pull =
+      target.getBoundingClientRect().top - banner.getBoundingClientRect().top;
+    if (pull > 0) {
+      target.style.setProperty('--cas-hero-pull', `${pull}px`);
+    }
+  }
+
+  Drupal.behaviors.casHero = {
+    attach(context) {
+      once('cas-hero', 'main .cas-hero', context).forEach((hero) => {
+        // Leave the Layout Builder editor's preview alone.
+        if (hero.closest('.layout-builder')) {
+          return;
+        }
+        // For video backgrounds the visible carrier is the outer
+        // .background-local-video wrapper; pull that one up.
+        const target = hero.closest('.background-local-video') || hero;
+        const update = () => casHeroMeasure(target);
+        update();
+        window.addEventListener('resize', update);
+        const banner = document.querySelector('header[role="banner"]');
+        if (banner && 'ResizeObserver' in window) {
+          new ResizeObserver(update).observe(banner);
+        }
+      });
+    },
+  };
+})(Drupal, once);

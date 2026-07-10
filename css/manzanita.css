@@ -113,6 +113,78 @@
     padding-inline: calc((100% - 1320px) / 2) !important;
   }
 }
+.layout-container main[role=main] div:has(> .w-100 > .layout-builder__layout),
+.layout-container main[role=main] .background-local-video:has(.w-100 > .layout-builder__layout) {
+  margin-inline: calc(50% - 50vw);
+}
+.layout-container main[role=main] .background-local-video div:has(> .w-100 > .layout-builder__layout) {
+  margin-inline: 0;
+}
+.layout-container main[role=main] .w-100:has(> .layout-builder__layout) {
+  max-width: 1320px;
+  margin-inline: auto;
+}
+.layout-container main[role=main] .layout-builder div:has(> .w-100 > .layout-builder__layout),
+.layout-container main[role=main] .layout-builder .background-local-video:has(.w-100 > .layout-builder__layout) {
+  margin-inline: 0;
+}
+
+html {
+  overflow-x: clip;
+}
+
+main[role=main] .cas-hero:not(.video-content *),
+main[role=main] .background-local-video:has(.cas-hero) {
+  margin-top: calc(-1 * var(--cas-hero-pull, 0px));
+}
+main[role=main] .cas-hero {
+  padding-top: var(--cas-hero-pull, 0px);
+}
+
+body:has(main .cas-hero) header[role=banner],
+body:has(main .cas-hero) #madrone-primary-menu-container {
+  position: relative;
+  z-index: 10;
+}
+body:has(main .cas-hero) header[role=banner] {
+  background-color: transparent !important;
+}
+body:has(main .cas-hero) #madrone-header-container {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.6)) !important;
+  border-bottom-color: transparent !important;
+}
+body:has(main .cas-hero) #madrone-header-container .header-search-block-form {
+  background-color: transparent !important;
+}
+body:has(main .cas-hero) .header-search-block-form input[type=search].form-control, body:has(main .cas-hero) .header-search-block-form input[type=search].form-control:focus {
+  background-color: transparent !important;
+}
+body:has(main .cas-hero) .container-fluid:has(> #madrone-primary-menu-container) {
+  background-color: transparent !important;
+}
+body:has(main .cas-hero) #madrone-primary-menu-container {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)) !important;
+}
+body:has(main .cas-hero) #madrone-primary-menu-container .block-superfish,
+body:has(main .cas-hero) #madrone-primary-menu-container .block-group-content-menu,
+body:has(main .cas-hero) #madrone-primary-menu-container ul,
+body:has(main .cas-hero) #madrone-primary-menu-container li {
+  background-color: transparent !important;
+}
+body:has(main .cas-hero) #madrone-primary-menu-container ul ul,
+body:has(main .cas-hero) #madrone-primary-menu-container ul ul li {
+  background-color: #2e2b2a !important;
+}
+body:has(main .cas-hero) #madrone-breadcrumb-container,
+body:has(main .cas-hero) main .block-page-title-block:not(.cas-hero *) {
+  display: none;
+}
+body:has(main .cas-hero) main .messages,
+body:has(main .cas-hero) main .block-local-tasks-block {
+  position: relative;
+  z-index: 10;
+}
+
 .cas-bg-osuorange {
   background-color: #d73f09;
 }
