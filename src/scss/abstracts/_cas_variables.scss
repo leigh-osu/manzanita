@@ -3,11 +3,9 @@
 @import '../../../../madrone/src/scss/abstracts/osu_variables';
 
 // Brand-guide colors with no madrone equivalent. Names and hex values from
-// communications.oregonstate.edu/brand-guide/visual-identity/colors. Note
-// madrone's ramp anchors Stratosphere at $stratosphere-400 (#006082); the
-// brand-guide Stratosphere is #006a8e, defined here.
-$stratosphere: #006a8e;
-$stratosphere-hsl: hsl(195.21 100% 27.84%);
+// communications.oregonstate.edu/brand-guide/visual-identity/colors.
+// (Stratosphere is NOT defined here: CAS adopts madrone's ramp anchor
+// $stratosphere-400 (#006082) rather than the brand-guide #006a8e.)
 $candela: #fdd26e;
 $candela-hsl: hsl(41.96 97.28% 71.18%);
 $coastline: #a7aca2;
@@ -15,18 +13,9 @@ $coastline-hsl: hsl(90 5.68% 65.49%);
 $high-desert: #7a6855;
 $high-desert-hsl: hsl(30.81 17.87% 40.59%);
 
-// Larch-only colors (not in the brand guide): the D7 "Alert Red" background
-// option and the vertical-tabs border gray.
-$alert-red: #af292e;
-$alert-red-hsl: hsl(357.76 62.04% 42.35%);
+// Larch-only color (not in the brand guide): the vertical-tabs border gray.
 $light-gray: #ddd;
 $light-gray-hsl: hsl(0 0% 86.67%);
-
-// Pure black: larch rendered larch-bg-black as #000, while madrone's
-// $paddletailblack is the brand web dark background (#212529). Kept so
-// migrated backgrounds stay visually identical to D7.
-$black: #000;
-$black-hsl: hsl(0 0% 0%);
 
 // Translucent overlays used by larch's trans bg classes over row background
 // images (larch-bg-trans-white / larch-bg-trans-black). Alpha values match
@@ -34,7 +23,7 @@ $black-hsl: hsl(0 0% 0%);
 // $osu-bg-gradient ($paddletailblack at 0.75).
 $trans-white: rgba($bucktoothwhite, 0.75);
 $trans-white-hsl: hsl(0 0% 100% / 0.75);
-$trans-black: rgba($black, 0.6);
+$trans-black: rgba(#000, 0.6);
 $trans-black-hsl: hsl(0 0% 0% / 0.6);
 
 // Fixed-width layout: cap the page content at 1320px (Bootstrap's xxl

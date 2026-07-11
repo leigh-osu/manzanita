@@ -185,92 +185,60 @@ body:has(main .cas-hero) main .block-local-tasks-block {
   z-index: 10;
 }
 
-.cas-bg-osuorange {
-  background-color: #d73f09;
+.osu-bg-pine-stand {
+  background-color: #4a773c !important;
 }
 
-.cas-bg-bucktoothwhite {
-  background-color: #fff;
+.osu-bg-high-tide {
+  background-color: #00859b !important;
 }
 
-.cas-bg-trans-white {
-  background-color: rgba(255, 255, 255, 0.75);
+.osu-bg-luminance {
+  background-color: #ffb500 !important;
 }
 
-.cas-bg-black {
-  background-color: #000;
+.osu-bg-stratosphere {
+  background-color: #006082 !important;
 }
 
-.cas-bg-trans-black {
-  background-color: rgba(0, 0, 0, 0.6);
+.osu-bg-reindeer-moss {
+  background-color: #c4d6a4 !important;
 }
 
-.cas-bg-alert-red {
-  background-color: #af292e;
+.osu-bg-sea-foam {
+  background-color: #b8dde1 !important;
 }
 
-.cas-bg-pine-400 {
-  background-color: #4a773c;
+.osu-bg-rogue-wave {
+  background-color: #0d5257 !important;
 }
 
-.cas-bg-rogue-wave-400 {
-  background-color: #00859b;
+.osu-bg-solar-flare {
+  background-color: #d3832b !important;
 }
 
-.cas-bg-luminance-400 {
-  background-color: #ffb500;
+.osu-bg-candela {
+  background-color: #fdd26e !important;
 }
 
-.cas-bg-stratosphere {
-  background-color: #006a8e;
+.osu-bg-coastline {
+  background-color: #a7aca2 !important;
 }
 
-.cas-bg-pine-200 {
-  background-color: #c4d6a4;
+.osu-bg-high-desert {
+  background-color: #7a6855 !important;
 }
 
-.cas-bg-rogue-wave-200 {
-  background-color: #b8dde1;
+.osu-bg-black {
+  background-color: #212529 !important;
 }
 
-.cas-bg-candela {
-  background-color: #fdd26e;
+.osu-bg-trans-white {
+  background-color: rgba(255, 255, 255, 0.75) !important;
 }
 
-.cas-bg-moondust {
-  background-color: #c6dae7;
-}
-
-.cas-bg-hop-bine {
-  background-color: #aa9d2e;
-}
-
-.cas-bg-rogue-wave-600 {
-  background-color: #0d5257;
-}
-
-.cas-bg-luminance-600 {
-  background-color: #d3832b;
-}
-
-.cas-bg-stratosphere-600 {
-  background-color: #003b5c;
-}
-
-.cas-bg-till {
-  background-color: #b7a99a;
-}
-
-.cas-bg-coastline {
-  background-color: #a7aca2;
-}
-
-.cas-bg-high-desert {
-  background-color: #7a6855;
-}
-
-.cas-bg-crater {
-  background-color: #8e9089;
+.osu-bg-trans-black {
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .osu-card--picbox .picbox-container {

@@ -1,36 +1,35 @@
 @import '../abstracts/cas_variables';
 
-// Background classes for content migrated from D7 larch (larch-bg-* ->
-// cas-bg-*, mapped in osu_migrations_cas CasLayoutBase). Class names mirror
-// the variable names, hyphenated (e.g. $rogue_wave-400 -> cas-bg-rogue-wave-400).
-// Applied by bootstrap_styles on layout builder section wrappers and blocks.
-$cas-bg-colors: (
-  'osuorange': $osuorange,
-  'bucktoothwhite': $bucktoothwhite,
-  'trans-white': $trans-white,
-  'black': $black,
-  'trans-black': $trans-black,
-  'alert-red': $alert-red,
-  'pine-400': $pine-400,
-  'rogue-wave-400': $rogue_wave-400,
-  'luminance-400': $luminance-400,
-  'stratosphere': $stratosphere,
-  'pine-200': $pine-200,
-  'rogue-wave-200': $rogue_wave-200,
+// OSU brand background utilities for colors that madrone's $osu-bg-colors
+// map does not generate. Class names and the !important pattern match
+// madrone's .osu-bg-* utilities exactly, and values come from madrone's
+// color ramps wherever the brand color exists there. Applied by
+// bootstrap_styles on layout builder section wrappers and blocks; editors
+// pick them from the styling-tray palette (osu_standard
+// bootstrap_styles.settings), and D7 larch-bg-* values are mapped to these
+// names during migration (osu_migrations_cas CasLayoutBase).
+$osu-bg-colors-cas: (
+  'pine-stand': $pine-400,
+  'high-tide': $rogue_wave-400,
+  'luminance': $luminance-400,
+  'stratosphere': $stratosphere-400,
+  'reindeer-moss': $pine-200,
+  'sea-foam': $rogue_wave-200,
+  'rogue-wave': $rogue_wave-600,
+  'solar-flare': $luminance-600,
   'candela': $candela,
-  'moondust': $moondust,
-  'hop-bine': $hop-bine,
-  'rogue-wave-600': $rogue_wave-600,
-  'luminance-600': $luminance-600,
-  'stratosphere-600': $stratosphere-600,
-  'till': $till,
   'coastline': $coastline,
   'high-desert': $high-desert,
-  'crater': $crater,
+  // Currently an alias of osu-bg-page-alt-2 ($paddletailblack); kept as its
+  // own class so CAS can retune "black" independently of the page palette.
+  'black': $paddletailblack,
+  // larch's translucent overlays, used over column background images.
+  'trans-white': $trans-white,
+  'trans-black': $trans-black,
 );
 
-@each $name, $color in $cas-bg-colors {
-  .cas-bg-#{$name} {
-    background-color: $color;
+@each $name, $color in $osu-bg-colors-cas {
+  .osu-bg-#{$name} {
+    background-color: $color !important;
   }
 }
