@@ -34,6 +34,12 @@ function manzanita_theme_suggestions_block_alter(array &$suggestions, array $var
  * @see block--block-content--view-type--osu-card--picbox.html.twig
  */
 function manzanita_preprocess_block(array &$variables) {
+  // Branding block: point the group-name header link at the group's landing
+  // page like D7 did, instead of the group entity page.
+  if (isset($variables['content']['group_name_link']['#url'])) {
+    _manzanita_group_header_link_to_landing_page($variables['content']['group_name_link']);
+  }
+
   $block = $variables['elements']['content']['#block_content'] ?? NULL;
   $view_mode = $variables['elements']['#configuration']['view_mode'] ?? NULL;
   if (!$block instanceof \Drupal\block_content\BlockContentInterface
@@ -60,4 +66,55 @@ function manzanita_preprocess_block(array &$variables) {
   // the 800x450 image style and text format are preserved.
   $variables['card_image'] = $variables['content']['field_osu_card_image'] ?? NULL;
   $variables['card_description'] = $variables['content']['body'] ?? NULL;
+}
+
+/**
+ * Points the branding block's group-name link at the group's landing page.
+ *
+ * The Drupal 7 header linked the group name to the node inside the group
+ * whose title matches the group name — the group's top-level book/landing
+ * page — via its URL alias (larch's _osu_groups_get_top_level_book_path()).
+ * osu_groups_basic_group's branding-block alter links to the group entity
+ * page (/group/GID) instead. When a matching landing node exists, rewrite
+ * the link to it; otherwise leave the group entity URL as a fallback.
+ *
+ * @param array $link
+ *   The 'group_name_link' render element from the branding block content.
+ *
+ * @see \Drupal\osu_groups_basic_group\OsuGroupsBasicGroupSystemBrandingBlockAlter::preRender()
+ */
+function _manzanita_group_header_link_to_landing_page(array &$link) {
+  $url = $link['#url'];
+  if (!$url instanceof \Drupal\Core\Url
+    || !$url->isRouted()
+    || $url->getRouteName() !== 'entity.group.canonical') {
+    return;
+  }
+  $group_id = $url->getRouteParameters()['group'] ?? NULL;
+  if (!$group_id) {
+    return;
+  }
+
+  $nid = \Drupal::database()->queryRange(
+    'SELECT n.nid
+     FROM {group_relationship_field_data} gr
+     JOIN {node_field_data} n ON n.nid = gr.entity_id
+     JOIN {groups_field_data} g ON g.id = gr.gid
+     WHERE gr.gid = :gid
+       AND gr.plugin_id LIKE :plugin
+       AND n.title = g.label
+       AND n.status = 1
+       AND n.default_langcode = 1
+     ORDER BY n.nid ASC',
+    0, 1,
+    [':gid' => $group_id, ':plugin' => 'group_node:%']
+  )->fetchField();
+
+  if ($nid) {
+    $link['#url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid]);
+    // The rewrite depends on the landing node's title matching the group
+    // label, so invalidate with both entities.
+    $link['#cache']['tags'][] = 'node:' . $nid;
+    $link['#cache']['tags'][] = 'group:' . $group_id;
+  }
 }

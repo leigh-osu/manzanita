@@ -241,6 +241,9 @@ body:has(main .cas-hero) main .block-local-tasks-block {
   background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
+.osu-card--picbox {
+  margin-bottom: 2.5rem;
+}
 .osu-card--picbox .picbox-container {
   position: relative;
 }
@@ -264,12 +267,83 @@ body:has(main .cas-hero) main .block-local-tasks-block {
   padding: 0.5em;
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
+  font-family: "Stratum2Web", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
   text-align: center;
 }
 .osu-card--picbox img {
   display: block;
   width: 100%;
   height: auto;
+}
+.osu-card--picbox .field--name-body {
+  margin-top: 0.5rem;
+}
+.osu-card--picbox .field--name-body h1, .osu-card--picbox .field--name-body h2, .osu-card--picbox .field--name-body h3, .osu-card--picbox .field--name-body h4, .osu-card--picbox .field--name-body h5, .osu-card--picbox .field--name-body h6 {
+  color: inherit;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+.node--type-osu-profile.node--view-mode-full .profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-header__photo {
+  flex: 0 0 auto;
+  max-width: 220px;
+}
+.node--type-osu-profile.node--view-mode-full .profile-header__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.node--type-osu-profile.node--view-mode-full .profile-header__info {
+  flex: 1 1 20rem;
+  padding-top: 0.25rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-header__info .field {
+  margin-bottom: 0.25rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-header__info .field--name-field-profile-address {
+  margin-top: 1rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-summary {
+  margin-bottom: 1.5rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-summary .field {
+  margin-bottom: 1rem;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details {
+  margin-bottom: 0.75rem;
+  padding: 0 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  background-color: #f5f5f5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details > summary {
+  margin: 0 -1rem;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details[open] {
+  padding-bottom: 0.75rem;
+  background-color: #fff;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details[open] > summary {
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details .field {
+  margin-bottom: 0.75rem;
 }
 
 .block-system-branding-block .link-purpose-external-icon {
