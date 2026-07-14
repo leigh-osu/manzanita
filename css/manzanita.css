@@ -372,7 +372,7 @@ header[role=banner] {
 
 .env-indicator {
   position: fixed;
-  top: 0;
+  top: var(--drupal-displace-offset-top, 0px);
   right: 0;
   left: auto;
   width: max-content;
@@ -380,7 +380,7 @@ header[role=banner] {
   z-index: 1100;
   padding: 0.3rem 1.2rem;
   border-bottom-left-radius: 0.7rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
