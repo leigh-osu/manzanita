@@ -371,16 +371,16 @@ header[role=banner] {
 }
 
 .env-indicator {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   left: auto;
   width: max-content;
   max-width: 50%;
-  z-index: 20;
-  padding: 0.15rem 0.6rem;
-  border-bottom-left-radius: 0.35rem;
-  font-size: 0.75rem;
+  z-index: 1100;
+  padding: 0.3rem 1.2rem;
+  border-bottom-left-radius: 0.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
