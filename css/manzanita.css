@@ -406,4 +406,11 @@ header[role=banner] {
   background-color: #555;
 }
 
+.field--name-field-osu-menu-bar-item-link a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
