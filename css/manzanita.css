@@ -346,6 +346,12 @@ body:has(main .cas-hero) main .block-local-tasks-block {
   margin-bottom: 0.75rem;
 }
 
+.layout .d-flex.flex-wrap > .block[class^=col-],
+.layout .d-flex.flex-wrap > .block[class*=" col-"] {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
 .block-system-branding-block .link-purpose-external-icon {
   display: none !important;
 }
@@ -358,6 +364,46 @@ body:has(main .cas-hero) main .block-local-tasks-block {
   font-family: "Stratum2Web", serif !important;
   font-weight: 300 !important;
   text-transform: uppercase !important;
+}
+
+header[role=banner] {
+  position: relative;
+}
+
+.env-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: max-content;
+  max-width: 50%;
+  z-index: 20;
+  padding: 0.15rem 0.6rem;
+  border-bottom-left-radius: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+}
+.env-indicator--local {
+  background-color: #0072c6;
+}
+.env-indicator--dev {
+  background-color: #d63d2b;
+}
+.env-indicator--test {
+  background-color: #f0ad20;
+  color: #1a1a1a;
+}
+.env-indicator--prod {
+  background-color: #218739;
+}
+.env-indicator--other {
+  background-color: #555;
 }
 
 /*# sourceMappingURL=manzanita.css.map */

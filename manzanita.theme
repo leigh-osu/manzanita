@@ -118,3 +118,62 @@ function _manzanita_group_header_link_to_landing_page(array &$link) {
     $link['#cache']['tags'][] = 'group:' . $group_id;
   }
 }
+
+/**
+ * Resolves the current build environment for the indicator badge.
+ *
+ * @return array|null
+ *   [machine_key, label] for the environment, or NULL when it can't be
+ *   determined. Acquia sets AH_SITE_ENVIRONMENT (dev/test/prod); DDEV sets
+ *   IS_DDEV_PROJECT.
+ */
+function _manzanita_environment(): ?array {
+  $ah = getenv('AH_SITE_ENVIRONMENT');
+  if ($ah !== FALSE && $ah !== '') {
+    $ah = strtolower($ah);
+    if (str_contains($ah, 'prod') || str_contains($ah, 'live')) {
+      return ['prod', 'Prod'];
+    }
+    if (str_contains($ah, 'test') || str_contains($ah, 'stage')) {
+      return ['test', 'Test'];
+    }
+    if (str_contains($ah, 'dev')) {
+      return ['dev', 'Dev'];
+    }
+    return ['other', strtoupper($ah)];
+  }
+  if (getenv('IS_DDEV_PROJECT') === 'true') {
+    return ['local', 'DDEV'];
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for the page template.
+ *
+ * Injects a colour-coded build-environment badge into the header region
+ * (red dev, yellow test, green prod, blue local). Shown to authenticated
+ * users only, so public visitors on prod don't see it.
+ */
+function manzanita_preprocess_page(array &$variables) {
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    return;
+  }
+  $env = _manzanita_environment();
+  if (!$env) {
+    return;
+  }
+  [$key, $label] = $env;
+  $variables['page']['header']['env_indicator'] = [
+    '#type' => 'html_tag',
+    '#tag' => 'div',
+    '#value' => $label,
+    '#attributes' => [
+      'class' => ['env-indicator', 'env-indicator--' . $key],
+      'title' => t('Build environment: @label', ['@label' => $label]),
+    ],
+    '#weight' => 1000,
+  ];
+  // Vary the header cache by environment + auth so the badge is correct.
+  $variables['#cache']['contexts'][] = 'user.roles:authenticated';
+}

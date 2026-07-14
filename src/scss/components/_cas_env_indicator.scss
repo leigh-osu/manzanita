@@ -1,0 +1,31 @@
+// Build-environment badge injected into the header by
+// manzanita_preprocess_page(): red dev, yellow test, green prod, blue local.
+header[role='banner'] {
+  position: relative;
+}
+
+.env-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  width: max-content;
+  max-width: 50%;
+  z-index: 20;
+  padding: 0.15rem 0.6rem;
+  border-bottom-left-radius: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+
+  &--local { background-color: #0072c6; }               // blue
+  &--dev   { background-color: #d63d2b; }                // red
+  &--test  { background-color: #f0ad20; color: #1a1a1a; } // yellow (dark text)
+  &--prod  { background-color: #218739; }                // green
+  &--other { background-color: #555; }
+}
