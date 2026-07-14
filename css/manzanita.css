@@ -141,46 +141,46 @@ main[role=main] .cas-hero {
   padding-top: var(--cas-hero-pull, 0px);
 }
 
-body:has(main .cas-hero) header[role=banner],
-body:has(main .cas-hero) #madrone-primary-menu-container {
+body.has-cas-hero header[role=banner],
+body.has-cas-hero #madrone-primary-menu-container {
   position: relative;
   z-index: 10;
 }
-body:has(main .cas-hero) header[role=banner] {
+body.has-cas-hero header[role=banner] {
   background-color: transparent !important;
 }
-body:has(main .cas-hero) #madrone-header-container {
+body.has-cas-hero #madrone-header-container {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.6)) !important;
   border-bottom-color: transparent !important;
 }
-body:has(main .cas-hero) #madrone-header-container .header-search-block-form {
+body.has-cas-hero #madrone-header-container .header-search-block-form {
   background-color: transparent !important;
 }
-body:has(main .cas-hero) .header-search-block-form input[type=search].form-control, body:has(main .cas-hero) .header-search-block-form input[type=search].form-control:focus {
+body.has-cas-hero .header-search-block-form input[type=search].form-control, body.has-cas-hero .header-search-block-form input[type=search].form-control:focus {
   background-color: transparent !important;
 }
-body:has(main .cas-hero) .container-fluid:has(> #madrone-primary-menu-container) {
+body.has-cas-hero .container-fluid:has(> #madrone-primary-menu-container) {
   background-color: transparent !important;
 }
-body:has(main .cas-hero) #madrone-primary-menu-container {
+body.has-cas-hero #madrone-primary-menu-container {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)) !important;
 }
-body:has(main .cas-hero) #madrone-primary-menu-container .block-superfish,
-body:has(main .cas-hero) #madrone-primary-menu-container .block-group-content-menu,
-body:has(main .cas-hero) #madrone-primary-menu-container ul,
-body:has(main .cas-hero) #madrone-primary-menu-container li {
+body.has-cas-hero #madrone-primary-menu-container .block-superfish,
+body.has-cas-hero #madrone-primary-menu-container .block-group-content-menu,
+body.has-cas-hero #madrone-primary-menu-container ul,
+body.has-cas-hero #madrone-primary-menu-container li {
   background-color: transparent !important;
 }
-body:has(main .cas-hero) #madrone-primary-menu-container ul ul,
-body:has(main .cas-hero) #madrone-primary-menu-container ul ul li {
+body.has-cas-hero #madrone-primary-menu-container ul ul,
+body.has-cas-hero #madrone-primary-menu-container ul ul li {
   background-color: #2e2b2a !important;
 }
-body:has(main .cas-hero) #madrone-breadcrumb-container,
-body:has(main .cas-hero) main .block-page-title-block:not(.cas-hero *) {
+body.has-cas-hero #madrone-breadcrumb-container,
+body.has-cas-hero main .block-page-title-block:not(.cas-hero *) {
   display: none;
 }
-body:has(main .cas-hero) main .messages,
-body:has(main .cas-hero) main .block-local-tasks-block {
+body.has-cas-hero main .messages,
+body.has-cas-hero main .block-local-tasks-block {
   position: relative;
   z-index: 10;
 }

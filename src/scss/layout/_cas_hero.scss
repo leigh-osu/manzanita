@@ -26,7 +26,7 @@ main[role='main'] {
   }
 }
 
-body:has(main .cas-hero) {
+body.has-cas-hero {
   // The bars paint above the pulled-up hero background.
   header[role='banner'],
   #madrone-primary-menu-container {

@@ -31,11 +31,25 @@
 
   Drupal.behaviors.casHero = {
     attach(context) {
+      // The hero pull only makes sense for the FIRST Layout Builder section
+      // (right below the header). On a later section the measured offset is
+      // the full scroll distance, which would yank it up the whole page, so
+      // scope the effect to the first section: its wrapper is the only
+      // cas-hero element that contains the page's first .layout-builder__layout.
+      const firstLayout = document.querySelector(
+        'main[role="main"] .layout-builder__layout',
+      );
       once('cas-hero', 'main .cas-hero', context).forEach((hero) => {
         // Leave the Layout Builder editor's preview alone.
         if (hero.closest('.layout-builder')) {
           return;
         }
+        // Ignore a cas-hero on any section other than the first.
+        if (!firstLayout || !hero.contains(firstLayout)) {
+          return;
+        }
+        // Signal the CSS (header/menu ramp) that a valid hero is present.
+        document.body.classList.add('has-cas-hero');
         // For video backgrounds the visible carrier is the outer
         // .background-local-video wrapper; pull that one up.
         const target = hero.closest('.background-local-video') || hero;
