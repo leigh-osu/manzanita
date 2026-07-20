@@ -1,0 +1,47 @@
+@import '../abstracts/cas_variables';
+
+// Image album gallery: fixed 220px square tiles in a grid that reflows by
+// column count. The tiles keep their size and the row simply fits fewer or
+// more of them, rather than stretching (which minmax(220px, 1fr) would do).
+//
+// Markup is the colorbox_view_modes formatter on field_image_album_images:
+//   .field--name-field-image-album-images  (also carries .field__items)
+//     .field__item
+//       a.colorbox
+//         article.media--view-mode-gallery-card
+//           img  (image style 220x220, already square)
+$cas-gallery-tile: 220px;
+
+.field--name-field-image-album-images.field__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $cas-gallery-tile);
+  gap: 1rem;
+  justify-content: start;
+
+  .field__item {
+    margin: 0;
+  }
+
+  // The colorbox trigger is an inline <a> by default, which would leave
+  // descender whitespace under the image inside the tile.
+  a.colorbox {
+    display: block;
+    line-height: 0;
+  }
+
+  .media--view-mode-gallery-card {
+    width: $cas-gallery-tile;
+    height: $cas-gallery-tile;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  // The 220x220 style already crops square; object-fit is belt and braces for
+  // any media whose derivative predates the style (or fails to generate).
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
