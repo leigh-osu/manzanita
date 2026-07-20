@@ -289,26 +289,30 @@ body.has-cas-hero main .block-local-tasks-block {
   margin-bottom: 0;
 }
 
-.field--name-field-image-album-images.field__items {
+.field--name-field-image-album-images.field__items,
+.field--name-field-weed-image.field__items {
   display: grid;
   grid-template-columns: repeat(auto-fill, 220px);
   gap: 1rem;
   justify-content: start;
 }
-.field--name-field-image-album-images.field__items .field__item {
+.field--name-field-image-album-images.field__items .field__item,
+.field--name-field-weed-image.field__items .field__item {
   margin: 0;
 }
-.field--name-field-image-album-images.field__items a.colorbox {
+.field--name-field-image-album-images.field__items a.colorbox,
+.field--name-field-weed-image.field__items a.colorbox {
   display: block;
   line-height: 0;
 }
-.field--name-field-image-album-images.field__items .media--view-mode-gallery-card {
+
+.media--view-mode-gallery-card {
   width: 220px;
   height: 220px;
   overflow: hidden;
   border-radius: 10px;
 }
-.field--name-field-image-album-images.field__items img {
+.media--view-mode-gallery-card img {
   display: block;
   width: 100%;
   height: 100%;
