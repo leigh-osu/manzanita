@@ -4,9 +4,16 @@
 // default field font size (~18px) and look oversized. Size the link like the
 // compact uppercase D7 menu-bar buttons. Targets the field so it applies to
 // both migrated (field) and native (inline) blocks.
-.field--name-field-osu-menu-bar-item-link a {
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+.field--name-field-osu-menu-bar-item-link {
+  // The gap between wrapped label lines comes from this block's line-height
+  // strut (inherited ~2.25 from the body), not the inline <a>, so tighten it
+  // here rather than on the anchor.
+  line-height: 1.1;
+
+  a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
 }

@@ -124,6 +124,13 @@
   max-width: 1320px;
   margin-inline: auto;
 }
+.layout-container main[role=main] .layout-builder__layout div:has(> .w-100 > .layout-builder__layout) {
+  margin-inline: 0;
+}
+.layout-container main[role=main] .layout-builder__layout .w-100:has(> .layout-builder__layout) {
+  max-width: none;
+  margin-inline: 0;
+}
 .layout-container main[role=main] .layout-builder div:has(> .w-100 > .layout-builder__layout),
 .layout-container main[role=main] .layout-builder .background-local-video:has(.w-100 > .layout-builder__layout) {
   margin-inline: 0;
@@ -436,6 +443,9 @@ header[role=banner] {
   background-color: #555;
 }
 
+.field--name-field-osu-menu-bar-item-link {
+  line-height: 1.1;
+}
 .field--name-field-osu-menu-bar-item-link a {
   font-size: 0.9rem;
   font-weight: 600;

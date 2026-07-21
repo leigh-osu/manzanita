@@ -52,6 +52,24 @@
     margin-inline: auto;
   }
 
+  // The bleed selectors above are descendant selectors, so they also match a
+  // Layout Builder layout nested inside a block that is itself built with
+  // Layout Builder -- e.g. an osu_menu_bar_item, whose block content is a
+  // .w-100 > .layout-builder__layout. Such a nested layout must stay inside its
+  // column, not bleed to the viewport and cap at the fixed width (which forced
+  // the menu-bar link out to 1320px). Only the outermost section should bleed,
+  // so undo it for any layout nested inside another .layout-builder__layout.
+  .layout-builder__layout {
+    div:has(> .w-100 > .layout-builder__layout) {
+      margin-inline: 0;
+    }
+
+    .w-100:has(> .layout-builder__layout) {
+      max-width: none;
+      margin-inline: 0;
+    }
+  }
+
   // The Layout Builder edit UI's preview pane is not centred on the viewport
   // (off-canvas tray, admin chrome), so the 50vw bleed only causes sideways
   // scrolling there; keep sections contained while editing.
