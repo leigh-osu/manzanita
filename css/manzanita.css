@@ -443,4 +443,19 @@ header[role=banner] {
   letter-spacing: 0.03em;
 }
 
+.osu-min-h-25 {
+  min-height: 25px;
+}
+
+.osu-min-h-50 {
+  min-height: 50px;
+}
+
+.background-local-video:has(.osu-min-h-25) {
+  min-height: 25px;
+}
+.background-local-video:has(.osu-min-h-50) {
+  min-height: 50px;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
