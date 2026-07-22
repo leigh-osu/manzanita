@@ -13,10 +13,6 @@ $coastline-hsl: hsl(90 5.68% 65.49%);
 $high-desert: #7a6855;
 $high-desert-hsl: hsl(30.81 17.87% 40.59%);
 
-// Larch-only color (not in the brand guide): the vertical-tabs border gray.
-$light-gray: #ddd;
-$light-gray-hsl: hsl(0 0% 86.67%);
-
 // Translucent overlays used by larch's trans bg classes over row background
 // images (larch-bg-trans-white / larch-bg-trans-black). Alpha values match
 // larch (0.75 / 0.6) for D7 parity; madrone's own dark scrim is the heavier

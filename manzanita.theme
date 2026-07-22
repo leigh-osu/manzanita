@@ -69,6 +69,139 @@ function manzanita_preprocess_block(array &$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() for Simple Styleguide patterns.
+ *
+ * Renders a live sample content block into the osu_card ("osu_card_default" /
+ * "osu_card_picbox") and osu_accordion ("osu_accordion") styleguide patterns,
+ * so the styleguide shows the real block markup -- including manzanita's
+ * view-mode overrides -- rather than a static, drift-prone snapshot. If no
+ * matching block exists to preview, the pattern's own configured text is left
+ * in place as a fallback.
+ *
+ * @see \Drupal\simple_styleguide\Controller\DefaultController::styleguide()
+ */
+function manzanita_preprocess_simple_styleguide_pattern(array &$variables) {
+  $pattern_id = $variables['pattern_id'] ?? NULL;
+
+  // The osu_menu_bar pattern renders a real Layout Builder menu-bar section
+  // (four icon buttons on an orange bar), forced edge-to-edge so the orange
+  // background bleeds to the viewport while the buttons keep the content width.
+  // It fills the content width, so it gets no centred-column wrapper.
+  if ($pattern_id === 'osu_menu_bar') {
+    if (($markup = _manzanita_styleguide_menu_bar()) !== NULL) {
+      $variables['pattern'] = $markup;
+    }
+    return;
+  }
+
+  // pattern id => [block bundle, view mode, required non-empty fields, column width].
+  $samples = [
+    'osu_card_default' => ['osu_card', 'default', ['field_osu_card_image', 'field_osu_card_link'], '33.3333%'],
+    'osu_card_picbox' => ['osu_card', 'picbox', ['field_osu_card_image', 'field_osu_card_link'], '33.3333%'],
+    'osu_accordion' => ['osu_accordion', 'default', ['field_osu_paragraph_item'], '50%'],
+  ];
+  if (!isset($samples[$pattern_id])) {
+    return;
+  }
+  [$bundle, $view_mode, $require_fields, $width] = $samples[$pattern_id];
+
+  // Pick a reusable block of this bundle that has the required fields
+  // populated. Reusable blocks render reliably standalone; inline (Layout
+  // Builder) blocks resolve their content through a host entity that is absent
+  // here, so they would render empty.
+  $storage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $query = $storage->getQuery()
+    ->condition('type', $bundle)
+    ->condition('reusable', 1)
+    ->accessCheck(FALSE)
+    ->range(0, 1);
+  foreach ($require_fields as $field) {
+    $query->exists($field);
+  }
+  $ids = $query->execute();
+  if (empty($ids)) {
+    return;
+  }
+  /** @var \Drupal\block_content\BlockContentInterface $block */
+  $block = $storage->load(reset($ids));
+
+  // Render the block through the content entity view builder wrapped in a block
+  // theme element, so the manzanita view-mode suggestion
+  // (block--block-content--view-type--<bundle>--<view_mode>) fires exactly as it
+  // does for an inline block in Layout Builder. Using the entity view builder
+  // (rather than the block plugin manager) means this also works for
+  // non-reusable blocks, which have no block_content:<uuid> plugin derivative.
+  $content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block_content')
+    ->view($block, $view_mode);
+  // Let the suggestion and preprocess see the entity and view mode.
+  $content['#block_content'] = $block;
+  $build = [
+    '#theme' => 'block',
+    '#configuration' => [
+      'view_mode' => $view_mode,
+      'label' => '',
+      'label_display' => '0',
+      'provider' => 'block_content',
+    ],
+    '#plugin_id' => 'inline_block:' . $bundle,
+    '#base_plugin_id' => 'inline_block',
+    '#derivative_plugin_id' => $bundle,
+    '#id' => 'styleguide_' . $pattern_id,
+    'content' => $content,
+  ];
+  $rendered = \Drupal::service('renderer')->renderInIsolation($build);
+
+  // Show the sample in a centred column of the given width. The wrapper's
+  // centring and the edge-to-edge bleed cancellation (needed for the .w-100
+  // default osu_card view mode) live in _cas_styleguide.scss.
+  $variables['pattern'] = \Drupal\Core\Render\Markup::create(
+    '<div class="manzanita-styleguide-card" style="width:' . $width . ';max-width:' . $width . ';">' . $rendered . '</div>'
+  );
+}
+
+/**
+ * Renders the sample menu-bar section for the osu_menu_bar styleguide pattern.
+ *
+ * Uses a real menu-bar section from an existing page (node 246806, section
+ * index 2): a blb_col_4 layout with four osu_menu_bar_item icon buttons on an
+ * orange (osu-bg-osuorange) background. The section's container is forced to
+ * "w-100" (Edge to Edge) so manzanita's fixed-width rule (_cas_fixed_width.scss)
+ * bleeds the orange background to the viewport while the buttons stay within the
+ * content column.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|null
+ *   The rendered section markup, or NULL if the source section is unavailable.
+ */
+function _manzanita_styleguide_menu_bar() {
+  $node = \Drupal::entityTypeManager()->getStorage('node')->load(246806);
+  if (!$node instanceof \Drupal\node\NodeInterface
+    || !$node->hasField('layout_builder__layout')
+    || $node->get('layout_builder__layout')->isEmpty()) {
+    return NULL;
+  }
+  $sections = $node->get('layout_builder__layout')->getSections();
+  if (!isset($sections[2])) {
+    return NULL;
+  }
+
+  // Clone the section so forcing edge-to-edge does not mutate the loaded node.
+  $section = clone $sections[2];
+  $settings = $section->getLayoutSettings();
+  $settings['container'] = 'w-100';
+  $section->setLayoutSettings($settings);
+
+  $contexts = [
+    'layout_builder.entity' => \Drupal\Core\Plugin\Context\EntityContext::fromEntity($node),
+    'view_mode' => new \Drupal\Core\Plugin\Context\Context(
+      \Drupal\Core\Plugin\Context\ContextDefinition::create('string'), 'full'
+    ),
+  ];
+  $build = $section->toRenderArray($contexts);
+  return \Drupal::service('renderer')->renderInIsolation($build);
+}
+
+/**
  * Points the branding block's group-name link at the group's landing page.
  *
  * The Drupal 7 header linked the group name to the node inside the group

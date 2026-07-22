@@ -4,6 +4,14 @@
 // default field font size (~18px) and look oversized. Size the link like the
 // compact uppercase D7 menu-bar buttons. Targets the field so it applies to
 // both migrated (field) and native (inline) blocks.
+// The icon and label field blocks carry bootstrap_styles' bs-text-center class,
+// but that class ships only in bootstrap_styles' example CSS (not attached on
+// the front end), so the button content is left-aligned. Centre it here so the
+// icon sits above a centred label.
+.block--type-osu-menu-bar-item {
+  text-align: center;
+}
+
 .field--name-field-osu-menu-bar-item-link {
   // The gap between wrapped label lines comes from this block's line-height
   // strut (inherited ~2.25 from the body), not the inline <a>, so tighten it

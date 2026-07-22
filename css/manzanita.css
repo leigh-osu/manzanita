@@ -443,6 +443,10 @@ header[role=banner] {
   background-color: #555;
 }
 
+.block--type-osu-menu-bar-item {
+  text-align: center;
+}
+
 .field--name-field-osu-menu-bar-item-link {
   line-height: 1.1;
 }
@@ -466,6 +470,21 @@ header[role=banner] {
 }
 .background-local-video:has(.osu-min-h-50) {
   min-height: 50px;
+}
+
+.layout-container .simple-styleguide--site-styles {
+  max-width: 1320px;
+}
+
+.manzanita-styleguide-card {
+  margin-inline: auto;
+}
+.manzanita-styleguide-card div:has(> .w-100 > .layout-builder__layout) {
+  margin-inline: 0 !important;
+}
+.manzanita-styleguide-card .w-100:has(> .layout-builder__layout) {
+  max-width: none !important;
+  margin-inline: 0 !important;
 }
 
 /*# sourceMappingURL=manzanita.css.map */
