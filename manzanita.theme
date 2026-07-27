@@ -34,10 +34,62 @@ function manzanita_theme_suggestions_block_alter(array &$suggestions, array $var
  * @see block--block-content--view-type--osu-card--picbox.html.twig
  */
 function manzanita_preprocess_block(array &$variables) {
+  // Branding block: show the active domain's name (from Domain settings) in the
+  // header instead of the global system.site name, so each domain shows its own
+  // name. The block template already renders {{ site_name }}.
+  if (($variables['base_plugin_id'] ?? NULL) === 'system_branding_block') {
+    $domain = \Drupal::service('domain.negotiator')->getActiveDomain();
+    if ($domain) {
+      $variables['site_name'] = $domain->label();
+    }
+  }
+
+  // On a site's front page keep the group-size site name but drop the group
+  // breadcrumb: the home page is the top-level landing, so the group would just
+  // repeat the site. Cache separately for the front page vs. elsewhere.
+  if (isset($variables['content']['group_name_link'])) {
+    $variables['#cache']['contexts'][] = 'url.path.is_front';
+    $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+
   // Branding block: point the group-name header link at the group's landing
   // page like D7 did, instead of the group entity page.
   if (isset($variables['content']['group_name_link']['#url'])) {
     _manzanita_group_header_link_to_landing_page($variables['content']['group_name_link']);
+  }
+
+  // Branding block: if the current group has a parent unit, expose it so the
+  // header can show it after the site name (D7 rendered the parent between
+  // light-grey » marks).
+  if (isset($variables['content']['group_name_link'])) {
+    $group = _manzanita_header_current_group();
+    if ($group instanceof \Drupal\group\Entity\GroupInterface
+      && $group->hasField('field_group_parent_unit')
+      && !$group->get('field_group_parent_unit')->isEmpty()
+      && ($parent = $group->get('field_group_parent_unit')->entity)) {
+      $variables['parent_unit_name'] = $parent->label();
+      // Link the parent unit to its canonical domain's home page (D7 linked
+      // the parent unit to its domain). Fall back to a landing node / group
+      // page when no canonical domain is set.
+      $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
+        ? $parent->get('field_domain_source')->entity
+        : NULL;
+      if ($parent_domain) {
+        $variables['parent_unit_url'] = $parent_domain->getScheme() . $parent_domain->getHostname() . base_path();
+      }
+      else {
+        $landing_nid = _manzanita_group_landing_nid($parent->id());
+        try {
+          $variables['parent_unit_url'] = $landing_nid
+            ? \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $landing_nid])->toString()
+            : $parent->toUrl()->toString();
+        }
+        catch (\Exception $e) {
+          // No resolvable URL; the template renders the name without a link.
+        }
+      }
+      $variables['#cache']['tags'][] = 'group:' . $parent->id();
+    }
   }
 
   $block = $variables['elements']['content']['#block_content'] ?? NULL;
@@ -228,7 +280,28 @@ function _manzanita_group_header_link_to_landing_page(array &$link) {
     return;
   }
 
-  $nid = \Drupal::database()->queryRange(
+  $nid = _manzanita_group_landing_nid($group_id);
+
+  if ($nid) {
+    $link['#url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid]);
+    // The rewrite depends on the landing node's title matching the group
+    // label, so invalidate with both entities.
+    $link['#cache']['tags'][] = 'node:' . $nid;
+    $link['#cache']['tags'][] = 'group:' . $group_id;
+  }
+}
+
+/**
+ * Finds a group's landing node (the group_node whose title matches the label).
+ *
+ * @param int|string $group_id
+ *   The group id.
+ *
+ * @return int|null
+ *   The landing node id, or NULL if the group has no matching node.
+ */
+function _manzanita_group_landing_nid($group_id) {
+  return \Drupal::database()->queryRange(
     'SELECT n.nid
      FROM {group_relationship_field_data} gr
      JOIN {node_field_data} n ON n.nid = gr.entity_id
@@ -242,14 +315,33 @@ function _manzanita_group_header_link_to_landing_page(array &$link) {
     0, 1,
     [':gid' => $group_id, ':plugin' => 'group_node:%']
   )->fetchField();
+}
 
-  if ($nid) {
-    $link['#url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid]);
-    // The rewrite depends on the landing node's title matching the group
-    // label, so invalidate with both entities.
-    $link['#cache']['tags'][] = 'node:' . $nid;
-    $link['#cache']['tags'][] = 'group:' . $group_id;
+/**
+ * Resolves the group for the current route (a node's group, or a group page).
+ *
+ * Mirrors OsuGroupsBasicGroupSystemBrandingBlockAlter so the header parent-unit
+ * marker targets the same group as the group-name link.
+ *
+ * @return \Drupal\group\Entity\GroupInterface|null
+ *   The current group, or NULL if the route is not in a group context.
+ */
+function _manzanita_header_current_group() {
+  $route_match = \Drupal::routeMatch();
+  $node = $route_match->getParameter('node');
+  if ($node !== NULL) {
+    if (!$node instanceof \Drupal\node\NodeInterface) {
+      $node = \Drupal::entityTypeManager()->getStorage('node')->load($node);
+    }
+    if ($node instanceof \Drupal\node\NodeInterface) {
+      $group_content = \Drupal::service('osu_groups.group_handler')->getGroupContentFromNode($node);
+      if ($group_content) {
+        return $group_content->getGroup();
+      }
+    }
   }
+  $group = $route_match->getParameter('group');
+  return $group instanceof \Drupal\group\Entity\GroupInterface ? $group : NULL;
 }
 
 /**

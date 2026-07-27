@@ -403,6 +403,34 @@ body.has-cas-hero main .block-local-tasks-block {
   text-transform: uppercase !important;
 }
 
+.block__content__site-name a {
+  text-decoration: none;
+}
+
+.block__content__site-name a:hover {
+  text-decoration-line: underline !important;
+  text-decoration-color: #d73f09 !important;
+}
+
+.block__content__site-name .site-name__sep {
+  color: #8e9089 !important;
+}
+
+.block__content__site-name .site-name__site-line {
+  column-gap: 0.4em;
+}
+
+.block__content__site-name .site-name__site-line,
+.block__content__site-name .site-name__site-line a,
+.block__content__site-name .site-name__site-line span {
+  font-size: 1.1rem !important;
+}
+
+.block__content__site-name .site-name__site-line--home,
+.block__content__site-name .site-name__site-line--home a {
+  font-size: 1.5rem !important;
+}
+
 header[role=banner] {
   position: relative;
 }
@@ -485,6 +513,10 @@ header[role=banner] {
 .manzanita-styleguide-card .w-100:has(> .layout-builder__layout) {
   max-width: none !important;
   margin-inline: 0 !important;
+}
+
+.layout-builder__link--rearrange {
+  margin-left: 1em;
 }
 
 /*# sourceMappingURL=manzanita.css.map */
