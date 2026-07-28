@@ -591,4 +591,10 @@ header[role=banner] {
   color: #fff;
 }
 
+.btn {
+  --bs-btn-border-radius: 0.75rem;
+  --bs-btn-padding-x: 0.75rem;
+  --bs-btn-padding-y: 0.28rem;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
