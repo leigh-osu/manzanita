@@ -12,12 +12,30 @@
   border-top: 6px solid #d73f09 !important;
 }
 
+.block-search-form-block > .block__content {
+  flex: 1 1 auto;
+}
+
 .header-search-block-form input[type=search].form-control, .header-search-block-form input[type=search].form-control:focus {
   background-color: #000 !important;
   color: #fff !important;
 }
 .header-search-block-form input[type=search].form-control::placeholder {
   color: #ccc !important;
+}
+
+.cas-header-links {
+  white-space: nowrap;
+}
+.cas-header-links a {
+  color: #fff;
+  font-family: "Stratum2Web", serif;
+  text-decoration: none;
+  padding-inline: 1rem;
+  border-left: 1px solid #696361;
+}
+.cas-header-links a:hover, .cas-header-links a:focus {
+  text-decoration: underline;
 }
 
 #madrone-primary-menu-container,

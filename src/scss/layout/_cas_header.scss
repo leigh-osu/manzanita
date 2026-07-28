@@ -21,6 +21,14 @@
   border-top: 6px solid $osuorange !important;
 }
 
+// The search form's container grows to fill the space between the block's
+// left divider and the Apply/MyCAS links, so input + magnifier + links sit
+// as one continuous line with no dead space; the input ends up between its
+// old full width and the half-width experiment.
+.block-search-form-block > .block__content {
+  flex: 1 1 auto;
+}
+
 // The actual search input gets a white background from Bootstrap's
 // .form-control (including on :focus), so override the input itself.
 .header-search-block-form input[type="search"].form-control {
@@ -32,5 +40,27 @@
 
   &::placeholder {
     color: #ccc !important;
+  }
+}
+
+// Utility links beside the search box — the Apply / MyCAS pair D7's larch
+// theme hardcoded in its header (see the search block template override).
+.cas-header-links {
+  white-space: nowrap;
+
+  a {
+    color: #fff;
+    font-family: 'Stratum2Web', serif;
+    text-decoration: none;
+    padding-inline: 1rem;
+    // Text-height divider ahead of each link (search | Apply | MyCAS),
+    // like D7 — not the full-height section border. align-items: center
+    // on the nav keeps the link (and so its border) at line height.
+    border-left: 1px solid $neutral-600;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 }
