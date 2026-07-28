@@ -1,6 +1,6 @@
 @import '../abstracts/cas_variables';
 
-// Top navigation menus: white text on a black background.
+// Top navigation menus: white text on black, matching the header bar.
 // Covers the primary (superfish) menu and the group content menu, including
 // their dropdown sub-menus, overriding madrone's neutral-200 backgrounds and
 // Bootstrap nav-pills colors.
@@ -10,7 +10,7 @@
   &,
   ul,
   li {
-    background-color: $neutral-800 !important;
+    background-color: #000 !important;
   }
 
   a,
@@ -30,8 +30,7 @@
     padding-bottom: 0.4rem !important;
   }
 
-  // Keep hover/active states visible within the dark menu ($neutral-600 sits
-  // the same distance above $neutral-800 as the previous #333 did above #000).
+  // Keep hover/active states visible within the black menu.
   a:hover,
   span:hover,
   a.nav-link:hover,

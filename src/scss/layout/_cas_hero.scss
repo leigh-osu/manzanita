@@ -29,7 +29,8 @@ main[role='main'] {
 body.has-cas-hero {
   // The bars paint above the pulled-up hero background.
   header[role='banner'],
-  #madrone-primary-menu-container {
+  #madrone-primary-menu-container,
+  #madrone-breadcrumb-container {
     position: relative;
     z-index: 10;
   }
@@ -41,8 +42,10 @@ body.has-cas-hero {
     background-color: transparent !important;
   }
 
+  // Header + menu together span the original header ramp (0.85 -> 0.60);
+  // the menu is the lower leg of it now that both bars are black.
   #madrone-header-container {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.60)) !important;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.70)) !important;
     border-bottom-color: transparent !important;
   }
 
@@ -70,7 +73,7 @@ body.has-cas-hero {
   }
 
   #madrone-primary-menu-container {
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.45)) !important;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.60)) !important;
 
     .block-superfish,
     .block-group-content-menu,
@@ -85,10 +88,16 @@ body.has-cas-hero {
     }
   }
 
-  // The breadcrumb and the page-title block would end up beneath the hero;
-  // hero pages carry their own heading inside the section (a title block
-  // placed inside the hero itself is left alone).
-  #madrone-breadcrumb-container,
+  // Breadcrumb bar: takes the menu bar's former leg of the ramp, fading
+  // toward the hero. Its solid dark-grey background (see _cas_breadcrumbs)
+  // is replaced by the gradient; the trail itself stays visible.
+  #madrone-breadcrumb-container {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.45)) !important;
+  }
+
+  // The page-title block would end up beneath the hero; hero pages carry
+  // their own heading inside the section (a title block placed inside the
+  // hero itself is left alone).
   main .block-page-title-block:not(.cas-hero *) {
     display: none;
   }

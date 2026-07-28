@@ -29,7 +29,7 @@
 .block-group-content-menu,
 .block-group-content-menu ul,
 .block-group-content-menu li {
-  background-color: #2e2b2a !important;
+  background-color: #000 !important;
 }
 #madrone-primary-menu-container a,
 #madrone-primary-menu-container span,
@@ -99,15 +99,10 @@
   margin-inline: auto;
 }
 
-#madrone-breadcrumb-container {
-  width: 100%;
-  max-width: 1320px;
-  margin-inline: auto;
-}
-
 @media (min-width: 1320px) {
   #madrone-header-container,
   #madrone-primary-menu-container,
+  #madrone-breadcrumb-container,
   #madrone-highlighted-container,
   #madrone-footer-container {
     padding-inline: calc((100% - 1320px) / 2) !important;
@@ -140,6 +135,34 @@ html {
   overflow-x: clip;
 }
 
+#madrone-breadcrumb-container {
+  background-color: #2e2b2a;
+}
+#madrone-breadcrumb-container:not(:has(li)) {
+  display: none;
+}
+#madrone-breadcrumb-container .breadcrumb {
+  margin: 0;
+  padding-block: 0.25rem;
+  font-size: 0.875rem;
+}
+#madrone-breadcrumb-container .breadcrumb-item {
+  color: #e9e5e4;
+}
+#madrone-breadcrumb-container .breadcrumb-item a {
+  color: #fff;
+  text-decoration: none;
+}
+#madrone-breadcrumb-container .breadcrumb-item a:hover, #madrone-breadcrumb-container .breadcrumb-item a:focus {
+  text-decoration: underline;
+}
+#madrone-breadcrumb-container .breadcrumb-item::before {
+  color: #b7b1af;
+}
+#madrone-breadcrumb-container .breadcrumb-item.active {
+  color: #e9e5e4;
+}
+
 main[role=main] .cas-hero:not(.video-content *),
 main[role=main] .background-local-video:has(.cas-hero) {
   margin-top: calc(-1 * var(--cas-hero-pull, 0px));
@@ -149,7 +172,8 @@ main[role=main] .cas-hero {
 }
 
 body.has-cas-hero header[role=banner],
-body.has-cas-hero #madrone-primary-menu-container {
+body.has-cas-hero #madrone-primary-menu-container,
+body.has-cas-hero #madrone-breadcrumb-container {
   position: relative;
   z-index: 10;
 }
@@ -157,7 +181,7 @@ body.has-cas-hero header[role=banner] {
   background-color: transparent !important;
 }
 body.has-cas-hero #madrone-header-container {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.6)) !important;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.7)) !important;
   border-bottom-color: transparent !important;
 }
 body.has-cas-hero #madrone-header-container .header-search-block-form {
@@ -170,7 +194,7 @@ body.has-cas-hero .container-fluid:has(> #madrone-primary-menu-container) {
   background-color: transparent !important;
 }
 body.has-cas-hero #madrone-primary-menu-container {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)) !important;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)) !important;
 }
 body.has-cas-hero #madrone-primary-menu-container .block-superfish,
 body.has-cas-hero #madrone-primary-menu-container .block-group-content-menu,
@@ -182,7 +206,9 @@ body.has-cas-hero #madrone-primary-menu-container ul ul,
 body.has-cas-hero #madrone-primary-menu-container ul ul li {
   background-color: #2e2b2a !important;
 }
-body.has-cas-hero #madrone-breadcrumb-container,
+body.has-cas-hero #madrone-breadcrumb-container {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.45)) !important;
+}
 body.has-cas-hero main .block-page-title-block:not(.cas-hero *) {
   display: none;
 }
@@ -550,6 +576,19 @@ header[role=banner] {
 .view-id-profile.view-display-id-faculty_staff .views-field-field-profile-image img {
   max-width: 160px;
   height: auto;
+}
+
+.nav-tabs .nav-link {
+  background-color: #f7f5f5;
+  color: #423e3c;
+  border-bottom-color: var(--bs-nav-tabs-border-color);
+}
+.nav-tabs .nav-link.active {
+  background-color: #2e2b2a;
+  color: #fff;
+}
+.nav-tabs .nav-link:not(.active):hover, .nav-tabs .nav-link:not(.active):focus {
+  color: #fff;
 }
 
 /*# sourceMappingURL=manzanita.css.map */

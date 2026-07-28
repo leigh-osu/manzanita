@@ -10,18 +10,17 @@
   margin-inline: auto;
 }
 
-// Breadcrumb renders outside <main>; box it into the same content column.
-#madrone-breadcrumb-container {
-  width: 100%;
-  max-width: $cas-fixed-width;
-  margin-inline: auto;
-}
+// Breadcrumb renders outside <main>. It carries a full-bleed background bar
+// (see _cas_breadcrumbs.scss), so like the header/menu bars its background
+// runs edge-to-edge while the trail itself is padded into the content column
+// by the media query below.
 
 // Full-bleed bars keep their background edge-to-edge but pad their content in
 // to the same 1320px column once the viewport is wider than the fixed width.
 @media (min-width: #{$cas-fixed-width}) {
   #madrone-header-container,
   #madrone-primary-menu-container,
+  #madrone-breadcrumb-container,
   #madrone-highlighted-container,
   #madrone-footer-container {
     padding-inline: calc((100% - #{$cas-fixed-width}) / 2) !important;
