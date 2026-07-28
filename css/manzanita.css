@@ -519,4 +519,37 @@ header[role=banner] {
   margin-left: 1em;
 }
 
+.view-id-profile.view-display-id-faculty_staff table {
+  border: 0;
+}
+.view-id-profile.view-display-id-faculty_staff table thead th {
+  color: #003b5c;
+  font-weight: 700;
+  border-bottom: 1px solid #8e9089;
+  background: none;
+}
+.view-id-profile.view-display-id-faculty_staff table tbody tr {
+  border-top: 3px double #8e9089;
+}
+.view-id-profile.view-display-id-faculty_staff table tbody tr:first-child {
+  border-top: 0;
+}
+.view-id-profile.view-display-id-faculty_staff table td {
+  vertical-align: top;
+  padding: 1.5rem 1rem;
+  border: 0;
+}
+.view-id-profile.view-display-id-faculty_staff .views-field-title a {
+  font-weight: 700;
+  color: #212529;
+  text-decoration: none;
+}
+.view-id-profile.view-display-id-faculty_staff .views-field-title a:hover {
+  text-decoration: underline;
+}
+.view-id-profile.view-display-id-faculty_staff .views-field-field-profile-image img {
+  max-width: 160px;
+  height: auto;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
