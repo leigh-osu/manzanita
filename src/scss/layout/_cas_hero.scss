@@ -27,9 +27,16 @@ main[role='main'] {
 }
 
 body.has-cas-hero {
-  // The bars paint above the pulled-up hero background.
+  // The bars paint above the pulled-up hero background. Header and menu sit
+  // a layer above the breadcrumb bar: it comes later in the DOM, so with
+  // equal z-index it would paint over dropdown sub-menus descending from
+  // the menu (which read as "transparent" panels cut off by the bar).
   header[role='banner'],
-  #madrone-primary-menu-container,
+  #madrone-primary-menu-container {
+    position: relative;
+    z-index: 11;
+  }
+
   #madrone-breadcrumb-container {
     position: relative;
     z-index: 10;
@@ -37,7 +44,7 @@ body.has-cas-hero {
 
   // Header bar: the solid black (and the region wrapper's osu-bg utility)
   // becomes the top of the ramp. The orange brand rule on the very top edge
-  // is kept; the divider line into the menu is dropped over an image.
+  // and the grey divider into the menu are kept, matching regular pages.
   header[role='banner'] {
     background-color: transparent !important;
   }
@@ -46,7 +53,6 @@ body.has-cas-hero {
   // the menu is the lower leg of it now that both bars are black.
   #madrone-header-container {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.70)) !important;
-    border-bottom-color: transparent !important;
   }
 
   #madrone-header-container .header-search-block-form {
@@ -82,9 +88,14 @@ body.has-cas-hero {
       background-color: transparent !important;
     }
 
+    // Dropdown sub-menus stay solid black over the hero image — only the
+    // top-level bar is part of the transparency ramp. Superfish nests the
+    // panel as li > ul, the group menu as ul ul; cover both.
+    li ul,
+    li ul li,
     ul ul,
     ul ul li {
-      background-color: $neutral-800 !important;
+      background-color: #000 !important;
     }
   }
 

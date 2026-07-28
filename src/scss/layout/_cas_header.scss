@@ -64,3 +64,21 @@
     }
   }
 }
+
+// Search magnifier: smaller than madrone's fs-2, beaver orange, white on
+// hover/focus. The icon's color needs !important to outrank madrone's
+// .osu-text-icon utility (also !important); so does the size against the
+// fs-2 utility.
+.header-search-block-form .form-actions button {
+  font-size: 1.25rem !important;
+
+  .fa-search {
+    color: $osuorange !important;
+    transition: color 200ms ease;
+  }
+
+  &:hover .fa-search,
+  &:focus .fa-search {
+    color: #fff !important;
+  }
+}

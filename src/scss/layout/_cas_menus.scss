@@ -12,6 +12,17 @@
   li {
     background-color: #000 !important;
   }
+}
+
+// Divider under the menu bar, matching the header's #666 line above it —
+// present on regular pages and over the cas-hero ramp alike.
+#madrone-primary-menu-container {
+  border-bottom: 1px solid #666;
+}
+
+#madrone-primary-menu-container,
+.block-superfish,
+.block-group-content-menu {
 
   a,
   span,
