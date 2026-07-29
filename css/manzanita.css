@@ -197,6 +197,10 @@ html {
   color: #e9e5e4;
 }
 
+footer[role=contentinfo] {
+  font-size: 0.9em;
+}
+
 main[role=main] .cas-hero:not(.video-content *),
 main[role=main] .background-local-video:has(.cas-hero) {
   margin-top: calc(-1 * var(--cas-hero-pull, 0px));
@@ -313,7 +317,7 @@ body.has-cas-hero main .block-local-tasks-block {
 }
 
 .osu-card--picbox {
-  margin-bottom: 2.5rem;
+  margin: 0.75em 0.75em 2.5rem;
 }
 .osu-card--picbox .picbox-container {
   position: relative;
@@ -537,12 +541,18 @@ header[role=banner] {
 
 .block--type-osu-menu-bar-item {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .field--name-field-osu-menu-bar-item-link {
   line-height: 1.1;
 }
 .field--name-field-osu-menu-bar-item-link a {
+  display: block;
+  padding-block: 0.5em;
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -633,6 +643,10 @@ header[role=banner] {
   --bs-btn-border-radius: 0.75rem;
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.28rem;
+}
+
+.block--type-paragraph-block .field--name-body {
+  padding: 1em;
 }
 
 /*# sourceMappingURL=manzanita.css.map */

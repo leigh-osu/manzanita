@@ -63,4 +63,43 @@
       });
     },
   };
+
+  /**
+   * Collapse Layout Builder sections whose blocks are all empty.
+   *
+   * D7 rendered empty paragraphs as nothing; the migration turns every
+   * paragraph into an LB section with a min-height and (often) a background,
+   * so an empty one paints as a stray coloured band — e.g. a 20px orange
+   * strip stacked on a menu bar, which reads as a mis-centred bar.
+   * Deliberate divider sections are component-less (no .block inside) and
+   * are left alone; only sections that HAVE blocks, all of them empty of
+   * text and embedded media, are hidden.
+   */
+  Drupal.behaviors.casCollapseEmptySections = {
+    attach(context) {
+      once(
+        'cas-empty-section',
+        'main .layout-builder__layout',
+        context,
+      ).forEach((layout) => {
+        // Leave the Layout Builder editor alone.
+        if (layout.closest('.layout-builder')) {
+          return;
+        }
+        const blocks = layout.querySelectorAll('.block');
+        if (!blocks.length) {
+          return; // Component-less divider section: intentional.
+        }
+        const hasContent =
+          layout.textContent.trim() !== '' ||
+          layout.querySelector('img, svg, iframe, video, audio, form, canvas');
+        if (!hasContent) {
+          // Hide the painted wrapper (background sits on the section
+          // wrapper around the layout), falling back to the layout itself.
+          const wrapper = layout.closest('.bg-color') || layout;
+          wrapper.style.display = 'none';
+        }
+      });
+    },
+  };
 })(Drupal, once);

@@ -2,9 +2,9 @@
 // is overlaid in a translucent box across the top of the image, and the whole
 // card (image + overlay) is a single link target.
 .osu-card--picbox {
-  // D7 separated picbox rows with generous whitespace; the D10 grid stacks the
-  // cards inside Layout Builder columns, so the gap lives on the card itself.
-  margin-bottom: 2.5rem;
+  // 0.75em breathing room on all sides of each picbox tile; the larger bottom
+  // margin keeps D7's generous row separation.
+  margin: 0.75em 0.75em 2.5rem;
 
   .picbox-container {
     position: relative;

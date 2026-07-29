@@ -10,6 +10,12 @@
 // icon sits above a centred label.
 .block--type-osu-menu-bar-item {
   text-align: center;
+  // Centre the button vertically in its menu-bar cell (items with and
+  // without icons otherwise top-align at different heights).
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .field--name-field-osu-menu-bar-item-link {
@@ -19,6 +25,11 @@
   line-height: 1.1;
 
   a {
+    // Block, not inline-block: an inline-block sits on the wrapper line
+    // box's baseline, which pushed the label visibly below the bar's
+    // vertical centre.
+    display: block;
+    padding-block: 0.5em;
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;

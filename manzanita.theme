@@ -44,12 +44,29 @@ function manzanita_preprocess_block(array &$variables) {
     }
   }
 
-  // On a site's front page keep the group-size site name but drop the group
-  // breadcrumb: the home page is the top-level landing, so the group would just
-  // repeat the site. Cache separately for the front page vs. elsewhere.
+  // On a site's front page — or a group's landing node reached by its own
+  // path — keep the group-size site name but drop the group breadcrumb: the
+  // page IS the group/site top level, so the group name would just repeat
+  // it. Cache varies per route (landing detection) and front-page state.
   if (isset($variables['content']['group_name_link'])) {
     $variables['#cache']['contexts'][] = 'url.path.is_front';
-    $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage();
+    $variables['#cache']['contexts'][] = 'route';
+    $group = _manzanita_header_current_group();
+    $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage()
+      || _manzanita_is_group_landing_node()
+      // The "Home" group is the main site itself; never show it as a name.
+      || ($group && strcasecmp((string) $group->label(), 'Home') === 0);
+  }
+
+  // Domain front pages and group landing nodes suppress the page title
+  // block: the header's site name is the same string (or, on the home
+  // node, the title is just "Home"), and D7 landing pages showed no H1.
+  if (($variables['base_plugin_id'] ?? NULL) === 'page_title_block') {
+    $variables['#cache']['contexts'][] = 'route';
+    $variables['#cache']['contexts'][] = 'url.path.is_front';
+    if (\Drupal::service('path.matcher')->isFrontPage() || _manzanita_is_group_landing_node()) {
+      $variables['content'] = [];
+    }
   }
 
   // Branding block: point the group-name header link at the group's landing
@@ -289,6 +306,25 @@ function _manzanita_group_header_link_to_landing_page(array &$link) {
     $link['#cache']['tags'][] = 'node:' . $nid;
     $link['#cache']['tags'][] = 'group:' . $group_id;
   }
+}
+
+/**
+ * Whether the current route is a group's landing node.
+ *
+ * The landing node (title == group label) is a group's front page; the
+ * header suppresses the group name and page title there because both would
+ * just repeat the site name.
+ */
+function _manzanita_is_group_landing_node(): bool {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if (!$node instanceof \Drupal\node\NodeInterface) {
+    return FALSE;
+  }
+  $group = _manzanita_header_current_group();
+  if (!$group instanceof \Drupal\group\Entity\GroupInterface) {
+    return FALSE;
+  }
+  return (int) _manzanita_group_landing_nid($group->id()) === (int) $node->id();
 }
 
 /**
