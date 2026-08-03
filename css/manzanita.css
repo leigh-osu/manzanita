@@ -809,7 +809,7 @@ header[role=banner] {
 .env-indicator--dev {
   background-color: #d63d2b;
 }
-.env-indicator--test {
+.env-indicator--stage {
   background-color: #f0ad20;
   color: #1a1a1a;
 }
@@ -934,7 +934,7 @@ header[role=banner] {
   --bs-btn-hover-color: #fff;
   font-family: "Open Sans", sans-serif;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   margin: 0.5em;
   text-transform: uppercase;
 }
@@ -962,6 +962,20 @@ header[role=banner] {
 
 .block--type-paragraph-block .field--name-body {
   padding: 1em;
+}
+
+.node--type-publications .field--name-field-pub-keywords .field__items,
+.node--type-publications .field--name-field-pub-keywords .field__item,
+.node--type-publications .field--name-field-pub-authors .field__items,
+.node--type-publications .field--name-field-pub-authors .field__item,
+.node--type-publications .field--name-field-pub-editors .field__items,
+.node--type-publications .field--name-field-pub-editors .field__item {
+  display: inline;
+}
+.node--type-publications .field--name-field-pub-keywords .field__item:not(:last-child)::after,
+.node--type-publications .field--name-field-pub-authors .field__item:not(:last-child)::after,
+.node--type-publications .field--name-field-pub-editors .field__item:not(:last-child)::after {
+  content: "; ";
 }
 
 /*# sourceMappingURL=manzanita.css.map */
