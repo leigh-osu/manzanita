@@ -15,6 +15,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // Size the button to its content rather than letting it fill the flex
+  // cell; the hover background then hugs the padded label.
+  align-items: center;
   height: 100%;
 }
 
@@ -30,6 +33,17 @@
     // vertical centre.
     display: block;
     padding-block: 0.5em;
+    // Button side padding steps with the viewport: 1em on mobile,
+    // 1.25em from md (768px), 1.75em on full-size displays (1200px).
+    padding-inline: 1em;
+
+    @media (min-width: 768px) {
+      padding-inline: 1.25em;
+    }
+
+    @media (min-width: 1200px) {
+      padding-inline: 1.75em;
+    }
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;

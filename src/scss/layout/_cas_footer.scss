@@ -57,3 +57,8 @@ footer[role='contentinfo'] .region-footer {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+// Vertical breathing room around the copyright row.
+footer[role='contentinfo'] .madrone-copyright {
+  padding-block: 1.5em;
+}

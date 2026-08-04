@@ -33,3 +33,18 @@ $osu-bg-colors-cas: (
     background-color: $color !important;
   }
 }
+
+// Dark block backgrounds (black and the translucent black scrim) default
+// their text — headings included — to off-white. Migrated D7 content often
+// set orange or relied on light text on these; the migration parser now
+// strips orange TEXT colors, which would otherwise fall back to Paddletail
+// black and vanish on the dark ground. Explicit osu-text-* utilities still
+// win (madrone's carry !important).
+.osu-bg-black,
+.osu-bg-trans-black,
+.osu-bg-page-alt-2 {
+  &,
+  h1, h2, h3, h4, h5, h6 {
+    color: $neutral-100;
+  }
+}

@@ -44,29 +44,17 @@ function manzanita_preprocess_block(array &$variables) {
     }
   }
 
-  // On a site's front page — or a group's landing node reached by its own
-  // path — keep the group-size site name but drop the group breadcrumb: the
-  // page IS the group/site top level, so the group name would just repeat
-  // it. Cache varies per route (landing detection) and front-page state.
+  // On a site's front page keep the group-size site name but drop the
+  // group breadcrumb — the page IS the site top level. Group landing nodes
+  // now show the full site » parent » group line like any other group
+  // page (their titles are governed per-node by exclude_node_title).
   if (isset($variables['content']['group_name_link'])) {
     $variables['#cache']['contexts'][] = 'url.path.is_front';
     $variables['#cache']['contexts'][] = 'route';
     $group = _manzanita_header_current_group();
     $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage()
-      || _manzanita_is_group_landing_node()
       // The "Home" group is the main site itself; never show it as a name.
       || ($group && strcasecmp((string) $group->label(), 'Home') === 0);
-  }
-
-  // Domain front pages and group landing nodes suppress the page title
-  // block: the header's site name is the same string (or, on the home
-  // node, the title is just "Home"), and D7 landing pages showed no H1.
-  if (($variables['base_plugin_id'] ?? NULL) === 'page_title_block') {
-    $variables['#cache']['contexts'][] = 'route';
-    $variables['#cache']['contexts'][] = 'url.path.is_front';
-    if (\Drupal::service('path.matcher')->isFrontPage() || _manzanita_is_group_landing_node()) {
-      $variables['content'] = [];
-    }
   }
 
   // Branding block: point the group-name header link at the group's landing
@@ -85,21 +73,22 @@ function manzanita_preprocess_block(array &$variables) {
       && !$group->get('field_group_parent_unit')->isEmpty()
       && ($parent = $group->get('field_group_parent_unit')->entity)) {
       $variables['parent_unit_name'] = $parent->label();
-      // Link the parent unit to its canonical domain's home page (D7 linked
-      // the parent unit to its domain). Fall back to a landing node / group
-      // page when no canonical domain is set.
+      // Link the parent unit to its home page (field_group_home_page),
+      // falling back to its canonical domain's front page and finally the
+      // group entity page.
+      $landing_nid = _manzanita_group_landing_nid($parent->id());
       $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
         ? $parent->get('field_domain_source')->entity
         : NULL;
-      if ($parent_domain) {
+      if ($landing_nid) {
+        $variables['parent_unit_url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $landing_nid])->toString();
+      }
+      elseif ($parent_domain) {
         $variables['parent_unit_url'] = $parent_domain->getScheme() . $parent_domain->getHostname() . base_path();
       }
       else {
-        $landing_nid = _manzanita_group_landing_nid($parent->id());
         try {
-          $variables['parent_unit_url'] = $landing_nid
-            ? \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $landing_nid])->toString()
-            : $parent->toUrl()->toString();
+          $variables['parent_unit_url'] = $parent->toUrl()->toString();
         }
         catch (\Exception $e) {
           // No resolvable URL; the template renders the name without a link.
@@ -301,56 +290,38 @@ function _manzanita_group_header_link_to_landing_page(array &$link) {
 
   if ($nid) {
     $link['#url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $nid]);
-    // The rewrite depends on the landing node's title matching the group
-    // label, so invalidate with both entities.
+    // The rewrite depends on the group's home-page field, so invalidate
+    // with both entities.
     $link['#cache']['tags'][] = 'node:' . $nid;
     $link['#cache']['tags'][] = 'group:' . $group_id;
   }
 }
 
-/**
- * Whether the current route is a group's landing node.
- *
- * The landing node (title == group label) is a group's front page; the
- * header suppresses the group name and page title there because both would
- * just repeat the site name.
- */
-function _manzanita_is_group_landing_node(): bool {
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if (!$node instanceof \Drupal\node\NodeInterface) {
-    return FALSE;
-  }
-  $group = _manzanita_header_current_group();
-  if (!$group instanceof \Drupal\group\Entity\GroupInterface) {
-    return FALSE;
-  }
-  return (int) _manzanita_group_landing_nid($group->id()) === (int) $node->id();
-}
 
 /**
- * Finds a group's landing node (the group_node whose title matches the label).
+ * A group's landing node: the field_group_home_page reference, nothing else.
+ *
+ * The old title-match heuristic (group_node whose title equals the group
+ * label) is gone — the rebuild captures it once into the field
+ * (scripts-dev/populate_group_home_pages.php) and editors own it from
+ * there. No field value means no landing page: the header link stays on
+ * the group entity page.
  *
  * @param int|string $group_id
  *   The group id.
  *
  * @return int|null
- *   The landing node id, or NULL if the group has no matching node.
+ *   The landing node id, or NULL when the field is empty.
  */
 function _manzanita_group_landing_nid($group_id) {
-  return \Drupal::database()->queryRange(
-    'SELECT n.nid
-     FROM {group_relationship_field_data} gr
-     JOIN {node_field_data} n ON n.nid = gr.entity_id
-     JOIN {groups_field_data} g ON g.id = gr.gid
-     WHERE gr.gid = :gid
-       AND gr.plugin_id LIKE :plugin
-       AND n.title = g.label
-       AND n.status = 1
-       AND n.default_langcode = 1
-     ORDER BY n.nid ASC',
+  $nid = \Drupal::database()->queryRange(
+    'SELECT field_group_home_page_target_id
+     FROM {group__field_group_home_page}
+     WHERE entity_id = :gid AND deleted = 0',
     0, 1,
-    [':gid' => $group_id, ':plugin' => 'group_node:%']
+    [':gid' => $group_id]
   )->fetchField();
+  return $nid ?: NULL;
 }
 
 /**

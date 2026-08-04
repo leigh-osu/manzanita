@@ -531,6 +531,10 @@ footer[role=contentinfo] .region-footer {
   background-size: cover;
 }
 
+footer[role=contentinfo] .madrone-copyright {
+  padding-block: 1.5em;
+}
+
 main[role=main] .cas-hero:not(.video-content *),
 main[role=main] .background-local-video:has(.cas-hero) {
   margin-top: calc(-1 * var(--cas-hero-pull, 0px));
@@ -642,6 +646,25 @@ body.has-cas-hero main .block-local-tasks-block {
 
 .osu-bg-trans-black {
   background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.osu-bg-black,
+.osu-bg-black h1, .osu-bg-black h2, .osu-bg-black h3, .osu-bg-black h4, .osu-bg-black h5, .osu-bg-black h6,
+.osu-bg-trans-black,
+.osu-bg-trans-black h1,
+.osu-bg-trans-black h2,
+.osu-bg-trans-black h3,
+.osu-bg-trans-black h4,
+.osu-bg-trans-black h5,
+.osu-bg-trans-black h6,
+.osu-bg-page-alt-2,
+.osu-bg-page-alt-2 h1,
+.osu-bg-page-alt-2 h2,
+.osu-bg-page-alt-2 h3,
+.osu-bg-page-alt-2 h4,
+.osu-bg-page-alt-2 h5,
+.osu-bg-page-alt-2 h6 {
+  color: #f7f5f5;
 }
 
 .osu-card--picbox {
@@ -877,6 +900,7 @@ header[role=banner] {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   height: 100%;
 }
 
@@ -886,10 +910,21 @@ header[role=banner] {
 .field--name-field-osu-menu-bar-item-link a {
   display: block;
   padding-block: 0.5em;
+  padding-inline: 1em;
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+}
+@media (min-width: 768px) {
+  .field--name-field-osu-menu-bar-item-link a {
+    padding-inline: 1.25em;
+  }
+}
+@media (min-width: 1200px) {
+  .field--name-field-osu-menu-bar-item-link a {
+    padding-inline: 1.75em;
+  }
 }
 
 .osu-min-h-25 {
