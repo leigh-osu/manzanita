@@ -1065,4 +1065,9 @@ header[role=banner] {
   content: "; ";
 }
 
+.cas-group-add-content {
+  border-top: 0.25em solid #d73f09;
+  margin-top: 1em;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
