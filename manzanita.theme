@@ -42,6 +42,19 @@ function manzanita_preprocess_block(array &$variables) {
     if ($domain) {
       $variables['site_name'] = $domain->label();
     }
+
+    // Every domain is a College of Agricultural Sciences subsite: on
+    // non-default domains show a parent link back to the college home.
+    // The default Domain record carries the environment-correct hostname
+    // (ddev./stage prefixes map per environment).
+    if ($domain && !$domain->isDefault()) {
+      $default = \Drupal::entityTypeManager()->getStorage('domain')->loadDefaultDomain();
+      if ($default) {
+        $variables['parent_site_name'] = 'College of Agricultural Sciences';
+        $variables['parent_site_url'] = $default->getPath();
+        $variables['#cache']['contexts'][] = 'url.site';
+      }
+    }
   }
 
   // On a site's front page keep the group-size site name but drop the

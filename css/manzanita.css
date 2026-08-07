@@ -423,7 +423,7 @@ h6 {
   }
 }
 .layout-container main[role=main] div:has(> .w-100 > .layout-builder__layout),
-.layout-container main[role=main] .background-local-video:has(.w-100 > .layout-builder__layout) {
+.layout-container main[role=main] .background-local-video:has(.layout-builder__layout) {
   margin-inline: calc(50% - 50vw);
 }
 .layout-container main[role=main] .background-local-video div:has(> .w-100 > .layout-builder__layout) {
@@ -440,11 +440,21 @@ h6 {
   max-width: none;
   margin-inline: 0;
 }
+.layout-container main[role=main] .bg-image:has(> .container > .layout-builder__layout),
+.layout-container main[role=main] .bg-color:has(> .container > .layout-builder__layout) {
+  margin-inline: calc(50% - 50vw);
+}
+.layout-container main[role=main] .layout-builder__layout .bg-image:has(> .container > .layout-builder__layout),
+.layout-container main[role=main] .layout-builder__layout .bg-color:has(> .container > .layout-builder__layout) {
+  margin-inline: 0;
+}
 .layout-container main[role=main] div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
   margin-inline: calc(50% - 50vw);
 }
 .layout-container main[role=main] .layout-builder div:has(> .w-100 > .layout-builder__layout),
-.layout-container main[role=main] .layout-builder .background-local-video:has(.w-100 > .layout-builder__layout),
+.layout-container main[role=main] .layout-builder .background-local-video:has(.layout-builder__layout),
+.layout-container main[role=main] .layout-builder .bg-image:has(> .container > .layout-builder__layout),
+.layout-container main[role=main] .layout-builder .bg-color:has(> .container > .layout-builder__layout),
 .layout-container main[role=main] .layout-builder div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
   margin-inline: 0;
 }
@@ -1134,6 +1144,66 @@ header[role=banner] {
   background: none;
   color: #d73f09;
   text-decoration: underline;
+}
+
+:where(.layout-builder__layout .block.col-xs-1) {
+  flex: 0 0 auto;
+  width: 8.3333333333%;
+}
+
+:where(.layout-builder__layout .block.col-xs-2) {
+  flex: 0 0 auto;
+  width: 16.6666666667%;
+}
+
+:where(.layout-builder__layout .block.col-xs-3) {
+  flex: 0 0 auto;
+  width: 25%;
+}
+
+:where(.layout-builder__layout .block.col-xs-4) {
+  flex: 0 0 auto;
+  width: 33.3333333333%;
+}
+
+:where(.layout-builder__layout .block.col-xs-5) {
+  flex: 0 0 auto;
+  width: 41.6666666667%;
+}
+
+:where(.layout-builder__layout .block.col-xs-6) {
+  flex: 0 0 auto;
+  width: 50%;
+}
+
+:where(.layout-builder__layout .block.col-xs-7) {
+  flex: 0 0 auto;
+  width: 58.3333333333%;
+}
+
+:where(.layout-builder__layout .block.col-xs-8) {
+  flex: 0 0 auto;
+  width: 66.6666666667%;
+}
+
+:where(.layout-builder__layout .block.col-xs-9) {
+  flex: 0 0 auto;
+  width: 75%;
+}
+
+:where(.layout-builder__layout .block.col-xs-10) {
+  flex: 0 0 auto;
+  width: 83.3333333333%;
+}
+
+:where(.layout-builder__layout .block.col-xs-11) {
+  flex: 0 0 auto;
+  width: 91.6666666667%;
+}
+
+:where(.layout-builder__layout .block.col-xs-12) {
+  flex: 0 0 auto;
+  width: 100%;
 }
 
 /*# sourceMappingURL=manzanita.css.map */

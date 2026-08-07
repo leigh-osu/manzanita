@@ -35,7 +35,7 @@
 // outermost of those with negative margins and pull the container back in.
 .layout-container main[role='main'] {
   div:has(> .w-100 > .layout-builder__layout),
-  .background-local-video:has(.w-100 > .layout-builder__layout) {
+  .background-local-video:has(.layout-builder__layout) {
     margin-inline: calc(50% - 50vw);
   }
 
@@ -69,6 +69,21 @@
     }
   }
 
+  // Section-level background images around a plain .container (the
+  // migrated adjustable-columns bands): bleed the image to the viewport
+  // while the content stays in the fixed column.
+  // Colored bands share the treatment: D7's container-fluid shell ran
+  // every band edge-to-edge.
+  .bg-image:has(> .container > .layout-builder__layout),
+  .bg-color:has(> .container > .layout-builder__layout) {
+    margin-inline: calc(50% - 50vw);
+  }
+
+  .layout-builder__layout .bg-image:has(> .container > .layout-builder__layout),
+  .layout-builder__layout .bg-color:has(> .container > .layout-builder__layout) {
+    margin-inline: 0;
+  }
+
   // Menu-bar sections: the bar's background always runs edge-to-edge while
   // the buttons stay in the centred .container column (matching D7's
   // full-width orange/grey menu bars). The section wrapper div carries the
@@ -83,7 +98,9 @@
   // scrolling there; keep sections contained while editing.
   .layout-builder {
     div:has(> .w-100 > .layout-builder__layout),
-    .background-local-video:has(.w-100 > .layout-builder__layout),
+    .background-local-video:has(.layout-builder__layout),
+    .bg-image:has(> .container > .layout-builder__layout),
+    .bg-color:has(> .container > .layout-builder__layout),
     div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
       margin-inline: 0;
     }
