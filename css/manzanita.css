@@ -1106,4 +1106,34 @@ header[role=banner] {
   padding-inline: 0;
 }
 
+:where(.layout-builder__layout .block) {
+  display: flow-root;
+}
+
+.layout-builder__layout .block-menu ul.menu {
+  flex-direction: column;
+}
+.layout-builder__layout .block-menu ul.menu a,
+.layout-builder__layout .block-menu ul.menu a.nav-link,
+.layout-builder__layout .block-menu ul.menu span.nav-link {
+  display: inline-block;
+  padding: 0.15em 0;
+  background: none;
+  color: #d73f09;
+  font-size: inherit;
+  font-weight: inherit;
+  text-transform: none;
+}
+.layout-builder__layout .block-menu ul.menu a:hover, .layout-builder__layout .block-menu ul.menu a:focus, .layout-builder__layout .block-menu ul.menu a:active,
+.layout-builder__layout .block-menu ul.menu a.nav-link:hover,
+.layout-builder__layout .block-menu ul.menu a.nav-link:focus,
+.layout-builder__layout .block-menu ul.menu a.nav-link:active,
+.layout-builder__layout .block-menu ul.menu span.nav-link:hover,
+.layout-builder__layout .block-menu ul.menu span.nav-link:focus,
+.layout-builder__layout .block-menu ul.menu span.nav-link:active {
+  background: none;
+  color: #d73f09;
+  text-decoration: underline;
+}
+
 /*# sourceMappingURL=manzanita.css.map */

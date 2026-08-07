@@ -1,0 +1,9 @@
+// Blocks keep to themselves: floats inside a block (D7 media-wysiwyg
+// aligns, hand-floated images) must not escape and wrap the text of the
+// blocks that follow. flow-root gives every block in a Layout Builder
+// section its own block formatting context, containing its floats.
+// :where() keeps this at zero specificity so any block that styles its
+// own display (flex menu-bar items, grid cards, d-flex utilities) wins.
+:where(.layout-builder__layout .block) {
+  display: flow-root;
+}
