@@ -1120,6 +1120,10 @@ header[role=banner] {
   display: flow-root;
 }
 
+:where(.media[style*=width]) {
+  max-width: 100%;
+}
+
 .layout-builder__layout .block-menu ul.menu {
   flex-direction: column;
 }
