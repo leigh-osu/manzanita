@@ -440,8 +440,12 @@ h6 {
   max-width: none;
   margin-inline: 0;
 }
+.layout-container main[role=main] div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+  margin-inline: calc(50% - 50vw);
+}
 .layout-container main[role=main] .layout-builder div:has(> .w-100 > .layout-builder__layout),
-.layout-container main[role=main] .layout-builder .background-local-video:has(.w-100 > .layout-builder__layout) {
+.layout-container main[role=main] .layout-builder .background-local-video:has(.w-100 > .layout-builder__layout),
+.layout-container main[role=main] .layout-builder div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
   margin-inline: 0;
 }
 
@@ -903,6 +907,14 @@ header[role=banner] {
   align-items: center;
   height: 100%;
 }
+.block--type-osu-menu-bar-item [class*=bs-border-radius] {
+  border-radius: 0;
+}
+
+.field--name-field-osu-menu-bar-item-icon i {
+  display: inline-block;
+  font-size: 36px;
+}
 
 .field--name-field-osu-menu-bar-item-link {
   line-height: 1.1;
@@ -1083,6 +1095,15 @@ header[role=banner] {
   font-family: "Stratum2Web", serif;
   font-size: clamp(1.295rem, 1.295rem + 0.54vw, 1.7rem);
   font-weight: 500;
+}
+
+.block-field-blocknodepagefield-page-banner-image img {
+  width: 100%;
+  height: auto;
+}
+
+[class*=container] > .row.layout-builder__layout:has(> .px-0) {
+  padding-inline: 0;
 }
 
 /*# sourceMappingURL=manzanita.css.map */

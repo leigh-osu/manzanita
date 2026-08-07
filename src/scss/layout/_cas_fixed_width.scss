@@ -69,12 +69,22 @@
     }
   }
 
+  // Menu-bar sections: the bar's background always runs edge-to-edge while
+  // the buttons stay in the centred .container column (matching D7's
+  // full-width orange/grey menu bars). The section wrapper div carries the
+  // background colour; the .container inside re-centres itself on the
+  // viewport once the wrapper is bled.
+  div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+    margin-inline: calc(50% - 50vw);
+  }
+
   // The Layout Builder edit UI's preview pane is not centred on the viewport
   // (off-canvas tray, admin chrome), so the 50vw bleed only causes sideways
   // scrolling there; keep sections contained while editing.
   .layout-builder {
     div:has(> .w-100 > .layout-builder__layout),
-    .background-local-video:has(.w-100 > .layout-builder__layout) {
+    .background-local-video:has(.w-100 > .layout-builder__layout),
+    div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
       margin-inline: 0;
     }
   }
