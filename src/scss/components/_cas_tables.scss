@@ -1,0 +1,17 @@
+// Table cells: undo madrone's blanket .text-break on fields.
+//
+// madrone's field.html.twig puts Bootstrap's .text-break (word-break:
+// break-word !important) on every rendered field. That value lets text
+// break mid-word, which collapses a table column's min-content width from
+// "longest word" to about one character — so in auto-layout tables a short
+// label column gets crushed to a sliver whenever another column holds long
+// prose (D7 floored such columns at the longest word). Restore normal
+// word-breaking inside cells; long URLs still wrap via the inherited
+// overflow-wrap: break-word, which doesn't affect min-content. !important
+// is required to beat .text-break's own !important.
+.text-break {
+  td,
+  th {
+    word-break: normal !important;
+  }
+}

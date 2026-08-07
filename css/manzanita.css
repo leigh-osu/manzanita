@@ -1206,4 +1206,29 @@ header[role=banner] {
   width: 100%;
 }
 
+:where(.sand) {
+  color: #e0e0e0;
+}
+
+:where(.moondust) {
+  color: #c6dae7;
+}
+
+:where(.reindeer-moss) {
+  color: #c4d6a4;
+}
+
+:where(.pine-stand) {
+  color: #4a773c;
+}
+
+:where(.osu) {
+  color: #d73f09;
+}
+
+.text-break td,
+.text-break th {
+  word-break: normal !important;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
