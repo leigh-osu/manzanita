@@ -122,9 +122,12 @@
    * paragraph into an LB section with a min-height and (often) a background,
    * so an empty one paints as a stray coloured band — e.g. a 20px orange
    * strip stacked on a menu bar, which reads as a mis-centred bar.
-   * Deliberate divider sections are component-less (no .block inside) and
-   * are left alone; only sections that HAVE blocks, all of them empty of
-   * text and embedded media, are hidden.
+   * Deliberate divider sections are component-less (no .block inside), but
+   * so are sections whose field blocks all rendered nothing at all (an
+   * empty field block emits zero markup) — e.g. the story display's
+   * tags/organizations band. The two are told apart by paint: a divider
+   * only IS a divider if it shows a background colour, and white doesn't
+   * count on a white page.
    */
   Drupal.behaviors.casCollapseEmptySections = {
     attach(context) {
@@ -136,10 +139,6 @@
         // Leave the Layout Builder editor alone.
         if (layout.closest('.layout-builder')) {
           return;
-        }
-        const blocks = layout.querySelectorAll('.block');
-        if (!blocks.length) {
-          return; // Component-less divider section: intentional.
         }
         // A background image or video IS the content: D7 "entity
         // background" bands migrate as empty paragraph blocks with the
@@ -157,33 +156,56 @@
         const hasContent =
           layout.textContent.trim() !== '' ||
           layout.querySelector('img, svg, iframe, video, audio, form, canvas');
-        if (!hasContent) {
-          // Hide the whole section, not just the layout: bootstrap_styles
-          // paints backgrounds AND spacing (e.g. "p-2 mt-1 mb-1") on outer
-          // wrapper divs, which otherwise survive as a blank padded band.
-          // The section renders as a chain of sole-child wrappers
-          // (styles div > .container > .layout); climb to the outermost.
-          let wrapper = layout;
-          while (
-            wrapper.parentElement &&
-            wrapper.parentElement.children.length === 1 &&
-            !wrapper.parentElement.classList.contains('node__content')
-          ) {
-            wrapper = wrapper.parentElement;
-          }
-          // Only hide the climbed wrapper if it is itself empty — no text
-          // or embedded media beyond the empty layout. Anything else means
-          // a template put real content between wrapper and layout; hide
-          // just the layout in that case.
-          if (
-            wrapper !== layout &&
-            (wrapper.textContent.trim() !== '' ||
-              wrapper.querySelector('img, svg, iframe, video, audio, form, canvas'))
-          ) {
-            wrapper = layout;
-          }
-          wrapper.style.display = 'none';
+        if (hasContent) {
+          return;
         }
+        // Does an element paint a visible background colour? White is
+        // treated as unpainted: the page ground is white, so a white band
+        // is indistinguishable from blank space and safe to collapse.
+        const paints = (el) => {
+          const style = getComputedStyle(el);
+          if (style.backgroundImage !== 'none') {
+            return true;
+          }
+          const rgba = style.backgroundColor.match(/rgba?\(([^)]+)\)/);
+          if (!rgba) {
+            return false;
+          }
+          const [r, g, b, a = 1] = rgba[1].split(',').map(parseFloat);
+          return a > 0 && (r < 255 || g < 255 || b < 255);
+        };
+        // Hide the whole section, not just the layout: bootstrap_styles
+        // paints backgrounds AND spacing (e.g. "p-2 mt-1 mb-1") on outer
+        // wrapper divs, which otherwise survive as a blank padded band.
+        // The section renders as a chain of sole-child wrappers
+        // (styles div > .container > .layout); climb to the outermost,
+        // noting on the way whether any of it paints a colour.
+        let wrapper = layout;
+        let painted =
+          paints(layout) || Array.from(layout.children).some(paints);
+        while (
+          wrapper.parentElement &&
+          wrapper.parentElement.children.length === 1 &&
+          !wrapper.parentElement.classList.contains('node__content')
+        ) {
+          wrapper = wrapper.parentElement;
+          painted = painted || paints(wrapper);
+        }
+        if (!layout.querySelector('.block') && painted) {
+          return; // Component-less AND coloured: a deliberate divider band.
+        }
+        // Only hide the climbed wrapper if it is itself empty — no text
+        // or embedded media beyond the empty layout. Anything else means
+        // a template put real content between wrapper and layout; hide
+        // just the layout in that case.
+        if (
+          wrapper !== layout &&
+          (wrapper.textContent.trim() !== '' ||
+            wrapper.querySelector('img, svg, iframe, video, audio, form, canvas'))
+        ) {
+          wrapper = layout;
+        }
+        wrapper.style.display = 'none';
       });
     },
   };
