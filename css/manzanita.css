@@ -1268,4 +1268,12 @@ header[role=banner] {
   margin-left: 2em;
 }
 
+:where(.node--type-weed) .field + .field {
+  margin-top: 1em;
+}
+:where(.node--type-weed) .field--name-field-weed-latin-name {
+  font-style: italic;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
