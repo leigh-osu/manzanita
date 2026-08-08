@@ -422,3 +422,29 @@ function manzanita_preprocess_page(array &$variables) {
   // Vary the header cache by environment + auth so the badge is correct.
   $variables['#cache']['contexts'][] = 'user.roles:authenticated';
 }
+
+/**
+ * Implements hook_preprocess_field().
+ *
+ * madrone dresses story field_tags/field_osu_organizations links as
+ * centered button chips (btn btn-primary). CAS renamed the tags field to
+ * field_tax_story_tags (madrone's injection no longer matches it) and
+ * shows tags as a plain linked list via
+ * field--node--field-tax-story-tags--story.html.twig; organizations would
+ * still get chips if ever displayed, so strip the classes here (sub-theme
+ * preprocess runs after madrone's).
+ */
+function manzanita_preprocess_field(array &$variables) {
+  $element = $variables['element'];
+  if (($element['#bundle'] ?? '') !== 'story'
+    || $element['#field_name'] !== 'field_osu_organizations') {
+    return;
+  }
+  foreach ($variables['items'] as &$item) {
+    if (isset($item['content']['#options']['attributes']['class'])) {
+      $item['content']['#options']['attributes']['class'] = array_values(
+        array_diff($item['content']['#options']['attributes']['class'], ['btn', 'btn-primary'])
+      );
+    }
+  }
+}
