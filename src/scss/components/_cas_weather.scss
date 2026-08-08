@@ -1,0 +1,13 @@
+// Weather daily/monthly data sheets: the field_group fieldsets (Soil
+// Temperature, Air Temperature, ...) run together; give each section
+// breathing room above its legend.
+:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) {
+  fieldset {
+    margin-top: 1em;
+
+    // The content sits indented below its legend.
+    > .fieldset-wrapper {
+      margin-left: 2em;
+    }
+  }
+}

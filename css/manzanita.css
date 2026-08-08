@@ -1261,4 +1261,11 @@ header[role=banner] {
   margin-bottom: 0.5em;
 }
 
+:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) fieldset {
+  margin-top: 1em;
+}
+:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) fieldset > .fieldset-wrapper {
+  margin-left: 2em;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
