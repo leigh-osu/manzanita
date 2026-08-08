@@ -1235,4 +1235,8 @@ header[role=banner] {
   word-break: normal !important;
 }
 
+:where(.node--type-plant-variety-release .field) {
+  margin-bottom: 0.5em;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
