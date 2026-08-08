@@ -791,26 +791,48 @@ body.has-cas-hero main .block-local-tasks-block {
   margin-bottom: 1rem;
 }
 .node--type-osu-profile.node--view-mode-full .profile-sections > details {
-  margin-bottom: 0.75rem;
-  padding: 0 1rem;
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
-  background-color: #f5f5f5;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-.node--type-osu-profile.node--view-mode-full .profile-sections > details > summary {
-  margin: 0 -1rem;
-  padding: 0.65rem 1rem;
-  cursor: pointer;
-}
-.node--type-osu-profile.node--view-mode-full .profile-sections > details[open] {
-  padding-bottom: 0.75rem;
+  margin-bottom: 0;
+  border: 1px solid #dee2e6;
   background-color: #fff;
 }
+.node--type-osu-profile.node--view-mode-full .profile-sections > details + details {
+  margin-top: -1px;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details > summary {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: "Stratum2Web", serif;
+  font-size: clamp(1.295rem, 1.295rem + 0.54vw, 1.7rem);
+  font-weight: 500;
+  color: #d73f09;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details > summary::-webkit-details-marker {
+  display: none;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details > summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23d73f09'%3e%3cpath d='M2 5h12L8 12z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  transition: transform 0.2s ease-in-out;
+}
 .node--type-osu-profile.node--view-mode-full .profile-sections > details[open] > summary {
-  margin-bottom: 0.75rem;
-  border-bottom: 1px solid #ddd;
-  background-color: #f5f5f5;
+  background-color: #212529;
+  color: #fff;
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details[open] > summary::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M2 5h12L8 12z'/%3e%3c/svg%3e");
+  transform: rotate(90deg);
+}
+.node--type-osu-profile.node--view-mode-full .profile-sections > details > .details-wrapper {
+  padding: 0.75rem 1.25rem 1rem;
 }
 .node--type-osu-profile.node--view-mode-full .profile-sections > details .field {
   margin-bottom: 0.75rem;

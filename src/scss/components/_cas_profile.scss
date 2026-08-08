@@ -44,32 +44,64 @@
     }
   }
 
-  // D7 rendered the remaining profile sections as collapsed full-width gray
-  // accordion bars (At OSU, Biography, Professional Accomplishments, ...).
+  // The profile sections are field_group <details> elements, dressed to
+  // match the site's Bootstrap accordions (_cas_accordion): Stratum2
+  // beaver-orange titles with the solid arrowhead on the right, the open
+  // bar inverting to white-on-black, stacked items sharing borders.
   .profile-sections {
     > details {
-      margin-bottom: 0.75rem;
-      padding: 0 1rem;
-      border: 1px solid #ddd;
-      border-radius: 0.25rem;
-      background-color: #f5f5f5;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 0;
+      border: 1px solid #dee2e6;
+      background-color: #fff;
 
-      > summary {
-        margin: 0 -1rem;
-        padding: 0.65rem 1rem;
-        cursor: pointer;
+      + details {
+        // Adjacent items share an edge like accordion items.
+        margin-top: -1px;
       }
 
-      &[open] {
-        padding-bottom: 0.75rem;
-        background-color: #fff;
+      > summary {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        cursor: pointer;
+        list-style: none;
+        font-family: 'Stratum2Web', serif;
+        font-size: clamp(1.295rem, 1.295rem + 0.54vw, 1.7rem);
+        font-weight: 500;
+        color: $osuorange;
 
-        > summary {
-          margin-bottom: 0.75rem;
-          border-bottom: 1px solid #ddd;
-          background-color: #f5f5f5;
+        &::-webkit-details-marker {
+          display: none;
         }
+
+        // Solid arrowhead on the right, matching the accordion button:
+        // beaver-orange pointing down while collapsed.
+        &::after {
+          content: '';
+          flex-shrink: 0;
+          width: 1.25rem;
+          height: 1.25rem;
+          margin-left: auto;
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23d73f09'%3e%3cpath d='M2 5h12L8 12z'/%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-size: 1.25rem;
+          transition: transform 0.2s ease-in-out;
+        }
+      }
+
+      &[open] > summary {
+        background-color: $paddletailblack;
+        color: $bucktoothwhite;
+
+        // White icon rotated to point left, like the open accordion bar.
+        &::after {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M2 5h12L8 12z'/%3e%3c/svg%3e");
+          transform: rotate(90deg);
+        }
+      }
+
+      > .details-wrapper {
+        padding: 0.75rem 1.25rem 1rem;
       }
 
       .field {
