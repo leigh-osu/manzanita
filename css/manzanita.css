@@ -1307,4 +1307,14 @@ header[role=banner] {
   --cas-file-icon-color: #d24726;
 }
 
+[class*=block-field-blocknodestory] .field--label-above > .field__item,
+[class*=block-field-blocknodestory] .field--label-above > div.field__items > .field__item {
+  margin-left: 1em;
+}
+[class*=block-field-blocknodestory] .field--label-above > ul.field__items {
+  margin-left: 1em;
+  padding-left: 1.1em;
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=manzanita.css.map */
