@@ -119,7 +119,8 @@ function manzanita_preprocess_block(array &$variables) {
     return;
   }
 
-  // The link provides both the whole-card target (URI) and the overlay title.
+  // The link provides the whole-card target.
+  $link_label = NULL;
   if ($block->hasField('field_osu_card_link') && !$block->get('field_osu_card_link')->isEmpty()) {
     $link = $block->get('field_osu_card_link')->first();
     try {
@@ -130,8 +131,16 @@ function manzanita_preprocess_block(array &$variables) {
       // which Url rejects; the raw value is still a usable href.
       $variables['card_url'] = $link->uri ?: NULL;
     }
-    $variables['card_title'] = $link->title;
+    $link_label = $link->title ?: NULL;
   }
+
+  // The overlay headline is the component title whenever "Display title" is
+  // checked -- template_preprocess_block() only populates 'label' in that
+  // case, so an empty one means unchecked -- and the link label otherwise.
+  // Migrated picboxes carry their D7 headline as the component title (see
+  // CasParagraphsLayout::setPicboxComponentTitle()); the link label covers
+  // cards built by hand in Layout Builder with the title left hidden.
+  $variables['card_title'] = !empty($variables['label']) ? $variables['label'] : $link_label;
 
   // Render image and description through their configured field formatters so
   // the 800x450 image style and text format are preserved.

@@ -692,10 +692,19 @@ body.has-cas-hero main .block-local-tasks-block {
   max-width: 800px;
   margin: 0 auto;
 }
+.osu-card--picbox .picbox-media {
+  position: relative;
+}
 .osu-card--picbox .picbox-link {
   display: block;
-  position: relative;
+  position: static;
   text-decoration: none;
+}
+.osu-card--picbox .picbox-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 .osu-card--picbox .picbox-headline {
   position: absolute;

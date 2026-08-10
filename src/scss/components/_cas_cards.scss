@@ -16,11 +16,29 @@
     margin: 0 auto;
   }
 
-  // Whole-card link wraps the image and the overlay headline.
+  // Headline + image box. Positioned so the absolute .picbox-headline and the
+  // .picbox-link::after click overlay both resolve against it (the
+  // description sits outside, so the overlay never covers its text).
+  .picbox-media {
+    position: relative;
+  }
+
+  // The link holds only the headline (see the picbox template: keeping the
+  // image out of it keeps the image's alt out of the link's accessible name),
+  // so a stretched ::after restores the whole-card click target. The anchor
+  // itself must stay unpositioned or ::after would resolve against it instead
+  // of .picbox-media.
   .picbox-link {
     display: block;
-    position: relative;
+    position: static;
     text-decoration: none;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
   }
 
   // Translucent title bar across the top of the image. D7 rendered it in
