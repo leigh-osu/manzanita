@@ -14,7 +14,11 @@ header[role='banner'] {
   left: auto;
   width: max-content;
   max-width: 50%;
-  z-index: 1100;
+  // Floats above everything at the top of the page, sitewide_alert
+  // included: that module renders through hook_page_top(), so its banner
+  // occupies the same strip the badge is pinned to. Nothing else in the
+  // theme goes above 1100, so this stays the topmost layer.
+  z-index: 1200;
   padding: 0.3rem 1.2rem;
   border-bottom-left-radius: 0.7rem;
   font-size: 1.25rem;

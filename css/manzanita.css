@@ -911,7 +911,7 @@ header[role=banner] {
   left: auto;
   width: max-content;
   max-width: 50%;
-  z-index: 1100;
+  z-index: 1200;
   padding: 0.3rem 1.2rem;
   border-bottom-left-radius: 0.7rem;
   font-size: 1.25rem;
