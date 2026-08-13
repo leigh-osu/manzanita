@@ -87,14 +87,30 @@ function manzanita_preprocess_block(array &$variables) {
       && $group->hasField('field_group_parent')
       && !$group->get('field_group_parent')->isEmpty()
       && ($parent = $group->get('field_group_parent')->entity)) {
+      $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
+        ? $parent->get('field_domain_source')->entity
+        : NULL;
+
+      // The line reads: top-level domain group » parent group » group. When
+      // the parent IS the active domain's own top-level group — its canonical
+      // domain is the domain being viewed — the site name at the head of the
+      // line already says it, so the parent element would only repeat it
+      // (e.g. "Horticulture » Department of Horticulture » Garden Ecology
+      // Lab" on horticulture.oregonstate.edu). Skip it there. Never on the
+      // default domain: agsci's site name is the college, not any parent.
+      $active_domain = \Drupal::service('domain.negotiator')->getActiveDomain();
+      $variables['#cache']['contexts'][] = 'url.site';
+      if ($active_domain && !$active_domain->isDefault()
+        && $parent_domain && $parent_domain->id() === $active_domain->id()) {
+        $variables['#cache']['tags'][] = 'group:' . $parent->id();
+        return;
+      }
+
       $variables['parent_unit_name'] = $parent->label();
       // Link the parent group to its default page (the landing node),
       // falling back to its canonical domain's front page and finally the
       // group entity page.
       $landing_nid = _manzanita_group_landing_nid($parent->id());
-      $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
-        ? $parent->get('field_domain_source')->entity
-        : NULL;
       if ($landing_nid) {
         $variables['parent_unit_url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $landing_nid])->toString();
       }
