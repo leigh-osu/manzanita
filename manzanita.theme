@@ -76,17 +76,19 @@ function manzanita_preprocess_block(array &$variables) {
     _manzanita_group_header_link_to_landing_page($variables['content']['group_name_link']);
   }
 
-  // Branding block: if the current group has a parent unit, expose it so the
+  // Branding block: if the current group has a Group Parent, expose it so the
   // header can show it after the site name (D7 rendered the parent between
-  // light-grey » marks).
+  // light-grey » marks). The parent is a real content group -- the department
+  // group the D7 parent-unit link effectively resolved to -- so clicking it
+  // lands on that group's default (landing) page.
   if (isset($variables['content']['group_name_link'])) {
     $group = _manzanita_header_current_group();
     if ($group instanceof \Drupal\group\Entity\GroupInterface
-      && $group->hasField('field_group_parent_unit')
-      && !$group->get('field_group_parent_unit')->isEmpty()
-      && ($parent = $group->get('field_group_parent_unit')->entity)) {
+      && $group->hasField('field_group_parent')
+      && !$group->get('field_group_parent')->isEmpty()
+      && ($parent = $group->get('field_group_parent')->entity)) {
       $variables['parent_unit_name'] = $parent->label();
-      // Link the parent unit to its home page (field_group_home_page),
+      // Link the parent group to its default page (the landing node),
       // falling back to its canonical domain's front page and finally the
       // group entity page.
       $landing_nid = _manzanita_group_landing_nid($parent->id());
