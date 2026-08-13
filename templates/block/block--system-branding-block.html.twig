@@ -96,8 +96,12 @@
               {# Front page (home) shows only the group-size site name -- no
                  breadcrumb marks, parent or group name. #}
               {% if not hide_group_breadcrumb %}
-                {# First » always follows the site name in a group context. #}
-                <span class="site-name__sep">&raquo;</span>
+                {# A » follows the site name only when something follows it:
+                   the group that owns this domain is not repeated as the
+                   group element, so on its own pages the line may end here. #}
+                {% if parent_unit_name or not hide_group_name %}
+                  <span class="site-name__sep">&raquo;</span>
+                {% endif %}
                 {% if parent_unit_name %}
                   <div class="site-name__parent-unit--wrapper">
                     {% if parent_unit_url %}
@@ -105,13 +109,15 @@
                     {% else %}
                       <span class="site-name__parent-unit fs-6">{{ parent_unit_name }}</span>
                     {% endif %}
-                    {# Second » only trails the parent when a parent unit is set. #}
-                    <span class="site-name__sep">&raquo;</span>
+                    {# Second » only trails the parent when the group follows. #}
+                    {% if not hide_group_name %}
+                      <span class="site-name__sep">&raquo;</span>
+                    {% endif %}
                   </div>
                 {% endif %}
               {% endif %}
             </div>
-            {% if not hide_group_breadcrumb %}
+            {% if not hide_group_breadcrumb and not hide_group_name %}
               <div class="site-name__group-link--wrapper">
                 {{ content.group_name_link }}
               </div>

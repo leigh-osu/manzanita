@@ -64,10 +64,18 @@ function manzanita_preprocess_block(array &$variables) {
   if (isset($variables['content']['group_name_link'])) {
     $variables['#cache']['contexts'][] = 'url.path.is_front';
     $variables['#cache']['contexts'][] = 'route';
+    $variables['#cache']['contexts'][] = 'url.site';
     $group = _manzanita_header_current_group();
     $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage()
       // The "Home" group is the main site itself; never show it as a name.
       || ($group && strcasecmp((string) $group->label(), 'Home') === 0);
+
+    // The group that owns the active domain is already named by the site name
+    // at the head of the line, so repeating it as the group element says the
+    // same thing twice (Honey Bee Lab » … » Honey Bee Lab). Drop the group
+    // element there; the parent, if any, still shows.
+    $top_gid = _manzanita_domain_top_group_id();
+    $variables['hide_group_name'] = $group && $top_gid && (int) $group->id() === $top_gid;
   }
 
   // Branding block: point the group-name header link at the group's landing
@@ -87,26 +95,24 @@ function manzanita_preprocess_block(array &$variables) {
       && $group->hasField('field_group_parent')
       && !$group->get('field_group_parent')->isEmpty()
       && ($parent = $group->get('field_group_parent')->entity)) {
-      $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
-        ? $parent->get('field_domain_source')->entity
-        : NULL;
-
       // The line reads: top-level domain group » parent group » group. When
-      // the parent IS the active domain's own top-level group — its canonical
-      // domain is the domain being viewed — the site name at the head of the
-      // line already says it, so the parent element would only repeat it
-      // (e.g. "Horticulture » Department of Horticulture » Garden Ecology
-      // Lab" on horticulture.oregonstate.edu). Skip it there. Never on the
-      // default domain: agsci's site name is the college, not any parent.
-      $active_domain = \Drupal::service('domain.negotiator')->getActiveDomain();
+      // the parent IS the domain's own top-level group, the site name at the
+      // head of the line already says it, so the parent element would only
+      // repeat it (e.g. "Horticulture » Department of Horticulture » Garden
+      // Ecology Lab" on horticulture.oregonstate.edu). Skip it there. On
+      // agsci the top group is "Home", which is never shown as a name, so
+      // parents always render on the default domain.
       $variables['#cache']['contexts'][] = 'url.site';
-      if ($active_domain && !$active_domain->isDefault()
-        && $parent_domain && $parent_domain->id() === $active_domain->id()) {
+      $top_gid = _manzanita_domain_top_group_id();
+      if ($top_gid && (int) $parent->id() === $top_gid) {
         $variables['#cache']['tags'][] = 'group:' . $parent->id();
         return;
       }
 
       $variables['parent_unit_name'] = $parent->label();
+      $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
+        ? $parent->get('field_domain_source')->entity
+        : NULL;
       // Link the parent group to its default page (the landing node),
       // falling back to its canonical domain's front page and finally the
       // group entity page.
@@ -474,4 +480,45 @@ function manzanita_preprocess_field(array &$variables) {
       );
     }
   }
+}
+
+/**
+ * The id of the group that owns the active domain, if any.
+ *
+ * Each domain sets its own front page (a config collection row,
+ * domain.<id>:system.site, carried over from D7 domain_conf); the group
+ * holding that node is the domain's top-level group. 34 of the 35 domains
+ * have one. This is the reliable signal — field_domain_source only names a
+ * group's canonical domain, and many groups share the same one, so it cannot
+ * distinguish the owner from its siblings.
+ *
+ * @return int|null
+ *   The group id, or NULL when the domain has no front page of its own or it
+ *   does not resolve to group content.
+ */
+function _manzanita_domain_top_group_id(): ?int {
+  $cache = &drupal_static(__FUNCTION__);
+  $domain = \Drupal::service('domain.negotiator')->getActiveDomain();
+  if (!$domain) {
+    return NULL;
+  }
+  $id = $domain->id();
+  if (array_key_exists($id, $cache ?? [])) {
+    return $cache[$id];
+  }
+
+  $cache[$id] = NULL;
+  $site = \Drupal::service('config.storage')->createCollection('domain.' . $id)->read('system.site');
+  $front = $site['page']['front'] ?? NULL;
+  if ($front) {
+    $path = \Drupal::service('path_alias.manager')->getPathByAlias($front);
+    if (preg_match('~^/node/(\d+)~', $path, $matches)) {
+      $gid = \Drupal::database()->query(
+        "SELECT gid FROM {group_relationship_field_data} WHERE entity_id = :nid AND plugin_id LIKE :plugin",
+        [':nid' => $matches[1], ':plugin' => 'group\_node:%']
+      )->fetchField();
+      $cache[$id] = $gid ? (int) $gid : NULL;
+    }
+  }
+  return $cache[$id];
 }
