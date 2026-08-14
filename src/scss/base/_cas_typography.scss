@@ -52,8 +52,9 @@ h1, h2, h3, h4, h5, h6 {
 // (Thin/Regular/Medium); h4-h6 sit below RFS's meaningful range and stay
 // flat.
 h1 {
-  font-size: clamp(1.525rem, 1.525rem + 3.3vw, 4rem);
-  font-weight: 300;
+  font-size: clamp(1.425rem, 1.425rem + 2.1vw, 3rem);
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 h2 {

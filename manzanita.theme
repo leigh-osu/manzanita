@@ -69,13 +69,6 @@ function manzanita_preprocess_block(array &$variables) {
     $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage()
       // The "Home" group is the main site itself; never show it as a name.
       || ($group && strcasecmp((string) $group->label(), 'Home') === 0);
-
-    // The group that owns the active domain is already named by the site name
-    // at the head of the line, so repeating it as the group element says the
-    // same thing twice (Honey Bee Lab » … » Honey Bee Lab). Drop the group
-    // element there; the parent, if any, still shows.
-    $top_gid = _manzanita_domain_top_group_id();
-    $variables['hide_group_name'] = $group && $top_gid && (int) $group->id() === $top_gid;
   }
 
   // Branding block: point the group-name header link at the group's landing
@@ -95,20 +88,11 @@ function manzanita_preprocess_block(array &$variables) {
       && $group->hasField('field_group_parent')
       && !$group->get('field_group_parent')->isEmpty()
       && ($parent = $group->get('field_group_parent')->entity)) {
-      // The line reads: top-level domain group » parent group » group. When
-      // the parent IS the domain's own top-level group, the site name at the
-      // head of the line already says it, so the parent element would only
-      // repeat it (e.g. "Horticulture » Department of Horticulture » Garden
-      // Ecology Lab" on horticulture.oregonstate.edu). Skip it there. On
-      // agsci the top group is "Home", which is never shown as a name, so
-      // parents always render on the default domain.
-      $variables['#cache']['contexts'][] = 'url.site';
-      $top_gid = _manzanita_domain_top_group_id();
-      if ($top_gid && (int) $parent->id() === $top_gid) {
-        $variables['#cache']['tags'][] = 'group:' . $parent->id();
-        return;
-      }
-
+      // D7 rendered the full chain unconditionally — domain site name »
+      // parent unit » group — even where names repeat (Honey Bee Lab »
+      // Department of Horticulture » Honey Bee Lab on the lab's own
+      // domain). Mimic that: no dedup, every element and separator always
+      // present. Only the "Home" group collapses (hide_group_breadcrumb).
       $variables['parent_unit_name'] = $parent->label();
       $parent_domain = $parent->hasField('field_domain_source') && !$parent->get('field_domain_source')->isEmpty()
         ? $parent->get('field_domain_source')->entity
@@ -482,43 +466,3 @@ function manzanita_preprocess_field(array &$variables) {
   }
 }
 
-/**
- * The id of the group that owns the active domain, if any.
- *
- * Each domain sets its own front page (a config collection row,
- * domain.<id>:system.site, carried over from D7 domain_conf); the group
- * holding that node is the domain's top-level group. 34 of the 35 domains
- * have one. This is the reliable signal — field_domain_source only names a
- * group's canonical domain, and many groups share the same one, so it cannot
- * distinguish the owner from its siblings.
- *
- * @return int|null
- *   The group id, or NULL when the domain has no front page of its own or it
- *   does not resolve to group content.
- */
-function _manzanita_domain_top_group_id(): ?int {
-  $cache = &drupal_static(__FUNCTION__);
-  $domain = \Drupal::service('domain.negotiator')->getActiveDomain();
-  if (!$domain) {
-    return NULL;
-  }
-  $id = $domain->id();
-  if (array_key_exists($id, $cache ?? [])) {
-    return $cache[$id];
-  }
-
-  $cache[$id] = NULL;
-  $site = \Drupal::service('config.storage')->createCollection('domain.' . $id)->read('system.site');
-  $front = $site['page']['front'] ?? NULL;
-  if ($front) {
-    $path = \Drupal::service('path_alias.manager')->getPathByAlias($front);
-    if (preg_match('~^/node/(\d+)~', $path, $matches)) {
-      $gid = \Drupal::database()->query(
-        "SELECT gid FROM {group_relationship_field_data} WHERE entity_id = :nid AND plugin_id LIKE :plugin",
-        [':nid' => $matches[1], ':plugin' => 'group\_node:%']
-      )->fetchField();
-      $cache[$id] = $gid ? (int) $gid : NULL;
-    }
-  }
-  return $cache[$id];
-}
