@@ -153,14 +153,31 @@ h6 {
     opacity: 1;
   }
 }
+.cas-search-frame {
+  padding-inline: 0.75rem;
+}
+
+.cas-utility-item {
+  border-top: 1px solid #d73f09;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.cas-utility-item + .cas-utility-item {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .cas-header-links {
   white-space: nowrap;
 }
 .cas-header-links a {
   color: #fff;
   font-family: "Open Sans", sans-serif;
+  font-size: calc(1.125rem - 1px);
   text-decoration: none;
-  padding-inline: 1rem;
+  padding-inline: 0.5rem;
   border-left: 1px solid #696361;
 }
 .cas-header-links a:hover, .cas-header-links a:focus {
@@ -181,7 +198,7 @@ h6 {
 }
 
 #madrone-primary-menu-container {
-  border-bottom: 1px solid #666;
+  border-bottom: 2px solid #d73f09;
 }
 
 #madrone-primary-menu-container a,
@@ -199,11 +216,14 @@ h6 {
   background-color: transparent !important;
   color: #fff !important;
   font-family: "Stratum2Web", serif !important;
-  font-size: 1.1rem !important;
+  font-size: calc(1.1rem - 1px) !important;
   letter-spacing: 0.05em;
-  --bs-nav-link-padding-y: 0.4rem;
-  padding-top: 0.4rem !important;
-  padding-bottom: 0.4rem !important;
+  --bs-nav-link-padding-y: calc(0.4rem - 1px);
+  padding-top: calc(0.4rem - 1px) !important;
+  padding-bottom: calc(0.4rem - 1px) !important;
+  --bs-nav-link-padding-x: calc(1rem - 1px);
+  padding-left: calc(1rem - 1px) !important;
+  padding-right: calc(1rem - 1px) !important;
 }
 #madrone-primary-menu-container a:hover,
 #madrone-primary-menu-container span:hover,
@@ -472,8 +492,9 @@ html {
 }
 #madrone-breadcrumb-container .breadcrumb {
   margin: 0;
-  padding-block: 0.25rem;
-  font-size: 0.875rem;
+  padding-block: calc(0.4rem - 1px);
+  font-size: 15.8px;
+  line-height: 1.75rem;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   letter-spacing: -0.015em;
@@ -886,6 +907,12 @@ body.has-cas-hero main .block-local-tasks-block {
   color: #8e9089 !important;
 }
 
+.block__content__site-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-right: 1.5rem;
+}
+
 .block__content__site-name .site-name__site-line {
   column-gap: 0.4em;
 }
@@ -894,6 +921,10 @@ body.has-cas-hero main .block-local-tasks-block {
 .block__content__site-name .site-name__site-line a,
 .block__content__site-name .site-name__site-line span {
   font-size: 1.1rem !important;
+}
+
+.block__content__site-name .site-name__group-link {
+  font-size: calc(1.5rem - 1px) !important;
 }
 
 .block__content__site-name .site-name__site-line--home,

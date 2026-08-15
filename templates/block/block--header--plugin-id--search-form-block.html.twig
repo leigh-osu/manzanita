@@ -16,8 +16,7 @@
   'block',
   'block-' ~ configuration.provider|clean_class,
   'block-' ~ plugin_id|clean_class,
-  'col-3',
-  'col-lg-4',
+  'col-auto',
   'd-flex',
   'justify-content-end',
   'align-items-center',
@@ -29,7 +28,7 @@
   {% endif %}
   {{ title_suffix }}
   {% block content %}
-    <div class="border-start border-neutral-200 d-flex align-items-center h-100 px-4">
+    <div class="cas-search-frame border-start border-neutral-200 d-flex align-items-center h-100">
       <button type="button" class="cas-search-toggle"
               aria-expanded="false" aria-controls="cas-search-overlay">
         <span class="visually-hidden">{{ 'Open search'|t }}</span>
@@ -43,7 +42,7 @@
       <button type="button" class="cas-search-overlay__exit">{{ 'Exit Search'|t }}</button>
     </div>
   {% endblock %}
-  <nav class="cas-header-links d-none d-lg-flex align-items-center"
+  <nav class="cas-header-links d-none d-md-flex align-items-center"
        aria-label="{{ 'Utility links'|t }}">
     <a href="https://admissions.oregonstate.edu/apply-choose-application">{{ 'Apply'|t }}</a>
     <a href="/mycas">{{ 'MyCAS'|t }}</a>

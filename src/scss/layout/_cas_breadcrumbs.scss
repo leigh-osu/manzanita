@@ -16,11 +16,15 @@
 
   .breadcrumb {
     // madrone's 10px margin-top would show as a white sliver above the bar;
-    // pad inside the dark bar instead.
+    // pad inside the dark bar instead. Size, line-height and vertical
+    // padding mirror the menu bar above (calc(1.1rem - 1px) links,
+    // calc(0.4rem - 1px) padding, 1.75rem line) so the two bars match in
+    // height — but in Open Sans mixed case, not the menu's uppercase.
     margin: 0;
-    padding-block: 0.25rem;
-    // Subordinate to the 16px menu links above it.
-    font-size: 0.875rem;
+    padding-block: calc(0.4rem - 1px);
+    // A shade under the menu's calc(1.1rem - 1px) by request.
+    font-size: 15.8px;
+    line-height: 1.75rem;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     letter-spacing: -0.015em;

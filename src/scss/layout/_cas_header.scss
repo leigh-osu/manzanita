@@ -126,16 +126,46 @@
   }
 }
 
+// Search toggle frame: half the px-4 (1.5rem) the template used to carry,
+// matching the tightened utility-link gaps beside it.
+.cas-search-frame {
+  padding-inline: 0.75rem;
+}
+
 // Utility links beside the search toggle — the Apply / MyCAS pair D7's larch
 // theme hardcoded in its header (see the search block template override).
+// Visible while the menus are horizontal (d-md-flex); below md the pair is
+// appended to the collapsed menu by Drupal.behaviors.casUtilityMenuLinks.
+
+// The appended items sit at the end of either accordion, separated from the
+// real menu items by a rule.
+// (:first-of-type would match by element type, not class — the pair is
+// never the menu's first li, so mark the run's start via the sibling
+// combinator instead: every utility item gets the rule, following ones
+// drop it.)
+.cas-utility-item {
+  border-top: 1px solid $osuorange;
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.cas-utility-item + .cas-utility-item {
+  border-top: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 .cas-header-links {
   white-space: nowrap;
 
   a {
     color: #fff;
     font-family: 'Open Sans', sans-serif;
+    // 1px under the 1.125rem (18px) body size they inherited (measured).
+    font-size: calc(1.125rem - 1px);
     text-decoration: none;
-    padding-inline: 1rem;
+    // Half the original 1rem gap between search | Apply | MyCAS.
+    padding-inline: 0.5rem;
     // Text-height divider ahead of each link (search | Apply | MyCAS),
     // like D7 — not the full-height section border. align-items: center
     // on the nav keeps the link (and so its border) at line height.

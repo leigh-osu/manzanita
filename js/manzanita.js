@@ -209,4 +209,64 @@
       });
     },
   };
+
+  /**
+   * Apply / MyCAS follow the menu into its hamburger.
+   *
+   * The header pair (search block template) shows while the menu is
+   * horizontal (d-md-flex; both menus collapse at the md boundary). Below
+   * that, the pair joins the END of whichever collapsed menu the page has:
+   * superfish's accordion clone (ul.sf-accordion, main menu) or madrone's
+   * group mobile clone (#group-content-menu-accordion). Both clones are
+   * built by other scripts on load/resize, so this sweeps on an interval
+   * briefly and again on resize, marking its items with .cas-utility-item
+   * so it never double-appends.
+   */
+  Drupal.behaviors.casUtilityMenuLinks = {
+    attach(context) {
+      once('cas-utility-links', 'body', context).forEach(() => {
+        const LINKS = [
+          { text: Drupal.t('Apply'), href: 'https://admissions.oregonstate.edu/apply-choose-application' },
+          { text: Drupal.t('MyCAS'), href: '/mycas' },
+        ];
+        const append = (ul, liClass, aClass) => {
+          if (!ul || ul.querySelector(':scope > .cas-utility-item')) {
+            return;
+          }
+          LINKS.forEach(({ text, href }) => {
+            const li = document.createElement('li');
+            li.className = `${liClass} cas-utility-item`;
+            const a = document.createElement('a');
+            a.className = aClass;
+            a.href = href;
+            a.textContent = text;
+            li.appendChild(a);
+            ul.appendChild(li);
+          });
+        };
+        const sweep = () => {
+          append(
+            document.querySelector('ul.sf-accordion'),
+            'sf-depth-1 sf-no-children nav-item',
+            'sf-depth-1 nav-link',
+          );
+          const bucket = document.querySelector('#group-content-menu-accordion');
+          if (bucket) {
+            append(bucket.querySelector('ul.menu--level-1'), 'nav-item', 'nav-link');
+          }
+        };
+        sweep();
+        let tries = 0;
+        const timer = setInterval(() => {
+          sweep();
+          if (tries += 1, tries > 20) {
+            clearInterval(timer);
+          }
+        }, 500);
+        window.addEventListener('resize', () => {
+          window.setTimeout(sweep, 250);
+        });
+      });
+    },
+  };
 })(Drupal, once);

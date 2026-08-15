@@ -14,10 +14,10 @@
   }
 }
 
-// Divider under the menu bar, matching the header's #666 line above it —
-// present on regular pages and over the cas-hero ramp alike.
+// Divider under the menu bar — present on regular pages and over the
+// cas-hero ramp alike.
 #madrone-primary-menu-container {
-  border-bottom: 1px solid #666;
+  border-bottom: 2px solid $osuorange;
 }
 
 #madrone-primary-menu-container,
@@ -35,15 +35,22 @@
     // OSU brand display font (registered as @font-face by madrone/fonts).
     font-family: 'Stratum2Web', serif !important;
     // Up from Bootstrap's 1rem --bs-nav-link-font-size; covers the top bar
-    // and the dropdowns alike (this rule reaches every link in the menus).
-    font-size: 1.1rem !important;
+    // and the dropdowns alike (this rule reaches every link in the menus;
+    // dropdowns are reset to 1rem further down). 1px under 1.1rem by
+    // request.
+    font-size: calc(1.1rem - 1px) !important;
     // Open tracking like the site name (instead of the body's -0.01em).
     letter-spacing: 0.05em;
     // Slimmer than madrone's 1rem vertical padding (set as padding: 1rem on
-    // superfish links and via --bs-nav-link-padding-y on the group menu).
-    --bs-nav-link-padding-y: 0.4rem;
-    padding-top: 0.4rem !important;
-    padding-bottom: 0.4rem !important;
+    // superfish links and via --bs-nav-link-padding-y on the group menu),
+    // then 1px slimmer again by request.
+    --bs-nav-link-padding-y: calc(0.4rem - 1px);
+    padding-top: calc(0.4rem - 1px) !important;
+    padding-bottom: calc(0.4rem - 1px) !important;
+    // 1px inside the 1rem madrone/Bootstrap give links at every level.
+    --bs-nav-link-padding-x: calc(1rem - 1px);
+    padding-left: calc(1rem - 1px) !important;
+    padding-right: calc(1rem - 1px) !important;
   }
 
   // Rollover: orange fill with an off-white label, never underlined —
