@@ -34,41 +34,29 @@ function manzanita_theme_suggestions_block_alter(array &$suggestions, array $var
  * @see block--block-content--view-type--osu-card--picbox.html.twig
  */
 function manzanita_preprocess_block(array &$variables) {
-  // Branding block: show the active domain's name (from Domain settings) in the
-  // header instead of the global system.site name, so each domain shows its own
-  // name. The block template already renders {{ site_name }}.
+  // Branding block: exact D7 chain. larch rendered ONE line whose head was
+  // always the college name linking to the college home — the domain's own
+  // name never appeared in the chain (verified against the live D7 site;
+  // domain_conf never overrode site_name). The head is the site name here,
+  // and the college-home link rides in site_home_url for the template.
   if (($variables['base_plugin_id'] ?? NULL) === 'system_branding_block') {
-    $domain = \Drupal::service('domain.negotiator')->getActiveDomain();
-    if ($domain) {
-      $variables['site_name'] = $domain->label();
+    $variables['site_name'] = 'College of Agricultural Sciences';
+    $default = \Drupal::entityTypeManager()->getStorage('domain')->loadDefaultDomain();
+    if ($default) {
+      $variables['site_home_url'] = $default->getPath();
     }
-
-    // Every domain is a College of Agricultural Sciences subsite: on
-    // non-default domains show a parent link back to the college home.
-    // The default Domain record carries the environment-correct hostname
-    // (ddev./stage prefixes map per environment).
-    if ($domain && !$domain->isDefault()) {
-      $default = \Drupal::entityTypeManager()->getStorage('domain')->loadDefaultDomain();
-      if ($default) {
-        $variables['parent_site_name'] = 'College of Agricultural Sciences';
-        $variables['parent_site_url'] = $default->getPath();
-        $variables['#cache']['contexts'][] = 'url.site';
-      }
-    }
+    $variables['#cache']['contexts'][] = 'url.site';
   }
 
-  // On a site's front page keep the group-size site name but drop the
-  // group breadcrumb — the page IS the site top level. Group landing nodes
-  // now show the full site » parent » group line like any other group
-  // page (their titles are governed per-node by exclude_node_title).
+  // D7 rendered the chain on every page, front pages included (the node
+  // title was hidden there instead — exclude_node_title carries that).
+  // Only the "Home" group collapses to the bare college name, exactly the
+  // larch special case.
   if (isset($variables['content']['group_name_link'])) {
-    $variables['#cache']['contexts'][] = 'url.path.is_front';
     $variables['#cache']['contexts'][] = 'route';
     $variables['#cache']['contexts'][] = 'url.site';
     $group = _manzanita_header_current_group();
-    $variables['hide_group_breadcrumb'] = \Drupal::service('path.matcher')->isFrontPage()
-      // The "Home" group is the main site itself; never show it as a name.
-      || ($group && strcasecmp((string) $group->label(), 'Home') === 0);
+    $variables['hide_group_breadcrumb'] = $group && strcasecmp((string) $group->label(), 'Home') === 0;
   }
 
   // Branding block: point the group-name header link at the group's landing

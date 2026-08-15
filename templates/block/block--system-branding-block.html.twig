@@ -79,25 +79,16 @@
       {% endif %}
       {% if site_name %}
         <div class="block__content__site-name d-flex flex-column ms-4 py-2-5 lh-sm">
-          {# Subsites carry a parent link back to the college home, in every
-             branch (group headers included). #}
-          {% if parent_site_name and parent_site_url %}
-            <div class="site-name__parent-site-link--wrapper">
-              <a class="site-name__parent-site fs-6" href="{{ parent_site_url }}"
-                 rel="home">{{ parent_site_name }}</a>
-            </div>
-          {% endif %}
           {% if content.group_name_link %}
+            {# The exact D7 chain, one line: the college name (linking to the
+               college home) » [parent unit »] group. The Home group renders
+               the college name alone. #}
             <div class="site-name__site-line d-flex flex-wrap align-items-baseline{% if hide_group_breadcrumb %} site-name__site-line--home{% endif %}">
               <div class="site-name__site-link--wrapper">
-                <a class="site-name__site-link--with-group fs-6" href="{{ path('<front>') }}"
+                <a class="site-name__site-link--with-group fs-6" href="{{ site_home_url ?? path('<front>') }}"
                    rel="home">{{ site_name }}</a>
               </div>
-              {# Front page (home) shows only the group-size site name -- no
-                 breadcrumb marks, parent or group name. #}
               {% if not hide_group_breadcrumb %}
-                {# D7 chain: every element and separator always renders —
-                   site name » [parent unit »] group. #}
                 <span class="site-name__sep">&raquo;</span>
                 {% if parent_unit_name %}
                   <div class="site-name__parent-unit--wrapper">
