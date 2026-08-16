@@ -869,6 +869,64 @@ body.has-cas-hero main .block-local-tasks-block {
   margin-bottom: 0.75rem;
 }
 
+.views-field-field-profile-image img {
+  width: 100px;
+  height: 100px;
+  max-width: none;
+  object-fit: cover;
+}
+
+.cas-people-listing .views-view-grid .views-field-field-profile-image img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  aspect-ratio: 1/1;
+}
+.cas-people-listing .views-view-grid .views-field-field-profile-primary-title {
+  font-style: italic;
+}
+.cas-people-listing .views-view-grid .views-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cas-people-listing .views-view-grid .views-col {
+  float: none;
+  width: 25%;
+  padding: 0.5em;
+}
+@media (max-width: 991.98px) {
+  .cas-people-listing .views-view-grid .views-col {
+    width: 50%;
+  }
+}
+@media (max-width: 575.98px) {
+  .cas-people-listing .views-view-grid .views-col {
+    width: 100%;
+  }
+  .cas-people-listing .views-view-grid .views-field-field-profile-image img {
+    max-width: 100px;
+  }
+}
+
+.cas-people-listing table {
+  width: 100%;
+}
+
+.block-cas-group-profiles {
+  width: 100%;
+}
+
+.block-inline-blockparagraph-block + .block-cas-group-profiles {
+  margin-top: calc(0.75em - 26px);
+}
+
+.block-inline-blockparagraph-block:has(+ .block-cas-group-profiles) {
+  padding-left: 0 !important;
+}
+.block-inline-blockparagraph-block:has(+ .block-cas-group-profiles) .field--name-body {
+  padding-left: 0 !important;
+}
+
 .layout .d-flex.flex-wrap > .block[class^=col-],
 .layout .d-flex.flex-wrap > .block[class*=" col-"] {
   padding-right: 15px;

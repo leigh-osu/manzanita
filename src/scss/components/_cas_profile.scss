@@ -110,3 +110,90 @@
     }
   }
 }
+
+// Group people listings (profiles_group_membership view): portraits render
+// at a fixed square no matter how narrow the hosting column is — the
+// scale-crop styles set the pixels, this pins the box against the theme's
+// img { max-width: 100% } shrinking it in tight layouts. The theme strips
+// the view's id class, so the field class is the stable hook (the field
+// only exists in this view). Lists are 100x100; grid cards are 200x200,
+// italic-titled, with 1em of padding per card.
+.views-field-field-profile-image img {
+  width: 100px;
+  height: 100px;
+  max-width: none;
+  object-fit: cover;
+}
+
+.cas-people-listing .views-view-grid {
+  // Portraits scale down with their card on small screens instead of
+  // overflowing (aspect-ratio keeps them square below 200px).
+  .views-field-field-profile-image img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .views-field-field-profile-primary-title {
+    font-style: italic;
+  }
+
+  // Flex the row so cards wrap: 4-up desktop, 2-up small, 1-up phones.
+  .views-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .views-col {
+    float: none;
+    width: 25%;
+    padding: 0.5em;
+  }
+
+  @media (max-width: 991.98px) {
+    .views-col {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .views-col {
+      width: 100%;
+    }
+
+    .views-field-field-profile-image img {
+      max-width: 100px;
+    }
+  }
+}
+
+// The listing tables span their column regardless of content width.
+.cas-people-listing table {
+  width: 100%;
+}
+
+// The listing block fills its layout region: BLB regions are d-flex rows and
+// an unclassed block otherwise shrinks to flex-basis content width.
+.block-cas-group-profiles {
+  width: 100%;
+}
+
+// Tighten the gap between a heading paragraph block and the listing that
+// follows it to 0.75em (26px of h3 margin + block padding reads as a
+// disconnect): pull up by the surplus (26px - 0.75em at the 18px body size).
+.block-inline-blockparagraph-block + .block-cas-group-profiles {
+  margin-top: calc(0.75em - 26px);
+}
+
+// The heading block above a listing aligns flush with its table: drop the
+// column gutter and the body field's padding on just that block. (Heading
+// levels themselves are normalized to real h3s by
+// scripts-dev/fix_listing_heading_levels.php.)
+.block-inline-blockparagraph-block:has(+ .block-cas-group-profiles) {
+  padding-left: 0 !important;
+
+  .field--name-body {
+    padding-left: 0 !important;
+  }
+}
