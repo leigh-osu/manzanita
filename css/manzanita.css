@@ -1121,6 +1121,19 @@ header[role=banner] {
   font-size: 0.9rem;
 }
 
+.cas-faces-listing .faces-card,
+.cas-faces-listing .views-col {
+  padding: 1em;
+}
+.cas-faces-listing .views-field-field-osu-meta-image img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+.cas-faces-listing .faces-card__title {
+  margin: 0.5rem 0 0.35rem;
+}
+
 .layout-container .simple-styleguide--site-styles {
   max-width: 1320px;
 }
