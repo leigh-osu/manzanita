@@ -1085,6 +1085,42 @@ header[role=banner] {
   min-height: 50px;
 }
 
+.cas-news-listing .news-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  margin-bottom: 1rem;
+}
+.cas-news-listing .news-item > .views-field {
+  grid-column: 2;
+  text-align: left;
+}
+.cas-news-listing .news-item + .news-item {
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+.cas-news-listing .views-field-field-osu-story-cover-image {
+  grid-column: 1 !important;
+  grid-row: 1/span 5;
+  margin: 0.25rem 0 0.5rem;
+}
+.cas-news-listing .views-field-field-osu-story-cover-image img {
+  width: 100px;
+  height: 100px;
+  max-width: none;
+  object-fit: cover;
+}
+.cas-news-listing .views-field-field-story-publish-date {
+  color: #696361;
+  font-size: 0.9rem;
+}
+.cas-news-listing .news-item__title {
+  margin: 0.1rem 0 0.35rem;
+}
+.cas-news-listing .news-item__source a {
+  font-size: 0.9rem;
+}
+
 .layout-container .simple-styleguide--site-styles {
   max-width: 1320px;
 }
