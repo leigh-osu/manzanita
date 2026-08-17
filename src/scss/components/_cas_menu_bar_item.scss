@@ -60,9 +60,20 @@
     @media (min-width: 1200px) {
       padding-inline: 1.75em;
     }
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.03em;
   }
+}
+
+// Breathing room, matching the Source issue bars (_cas_issue_menubar.scss):
+// 2px of bar padding and 2px above/below each button, so the hover /
+// current white box floats inside the bar instead of touching its edges.
+.layout-container div.bg-color:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+  padding: 2px;
+}
+
+.block--type-osu-menu-bar-item > .block__content > div {
+  margin-block: 2px;
 }

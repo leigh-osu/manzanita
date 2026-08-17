@@ -67,19 +67,7 @@
     height: auto;
   }
 
-  // D7 showed the description as plain body text below the image. The body
-  // usually arrives as an <h5>, which Madrone would otherwise render large
-  // and orange.
   .field--name-body {
     margin-top: 0.5rem;
-
-    h1, h2, h3, h4, h5, h6 {
-      color: inherit;
-      font-family: inherit;
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.4;
-      margin-bottom: 0;
-    }
   }
 }

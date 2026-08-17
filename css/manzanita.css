@@ -472,6 +472,16 @@ h6 {
 .layout-container main[role=main] div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
   margin-inline: calc(50% - 50vw);
 }
+.layout-container main[role=main]:has(> .layout-sidebar) div:has(> .w-100 > .layout-builder__layout),
+.layout-container main[role=main]:has(> .layout-sidebar) .background-local-video:has(.layout-builder__layout),
+.layout-container main[role=main]:has(> .layout-sidebar) .bg-image:has(> .container > .layout-builder__layout),
+.layout-container main[role=main]:has(> .layout-sidebar) .bg-color:has(> .container > .layout-builder__layout),
+.layout-container main[role=main]:has(> .layout-sidebar) div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+  margin-inline: 0;
+}
+.layout-container main[role=main]:has(> .layout-sidebar) .w-100:has(> .layout-builder__layout) {
+  max-width: none;
+}
 .layout-container main[role=main] .layout-builder div:has(> .w-100 > .layout-builder__layout),
 .layout-container main[role=main] .layout-builder .background-local-video:has(.layout-builder__layout),
 .layout-container main[role=main] .layout-builder .bg-image:has(> .container > .layout-builder__layout),
@@ -525,6 +535,11 @@ html {
 
 footer[role=contentinfo] {
   font-size: 0.9em;
+  overflow-x: clip;
+}
+
+footer[role=contentinfo] .region-footer {
+  border-top: 2px solid #d73f09;
 }
 
 @media (min-width: 768px) {
@@ -750,14 +765,6 @@ body.has-cas-hero main .block-local-tasks-block {
 }
 .osu-card--picbox .field--name-body {
   margin-top: 0.5rem;
-}
-.osu-card--picbox .field--name-body h1, .osu-card--picbox .field--name-body h2, .osu-card--picbox .field--name-body h3, .osu-card--picbox .field--name-body h4, .osu-card--picbox .field--name-body h5, .osu-card--picbox .field--name-body h6 {
-  color: inherit;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.4;
-  margin-bottom: 0;
 }
 
 .field--name-field-image-album-images.field__items,
@@ -1054,7 +1061,7 @@ header[role=banner] {
   display: block;
   padding-block: 0.5em;
   padding-inline: 1em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -1068,6 +1075,14 @@ header[role=banner] {
   .field--name-field-osu-menu-bar-item-link a {
     padding-inline: 1.75em;
   }
+}
+
+.layout-container div.bg-color:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+  padding: 2px;
+}
+
+.block--type-osu-menu-bar-item > .block__content > div {
+  margin-block: 2px;
 }
 
 .osu-min-h-25 {
@@ -1132,6 +1147,420 @@ header[role=banner] {
 }
 .cas-faces-listing .faces-card__title {
   margin: 0.5rem 0 0.35rem;
+}
+.cas-faces-listing .faces-card__more {
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
+.cas-group-footer {
+  margin-bottom: 2.5em;
+  padding-bottom: 1.5em;
+  position: relative;
+}
+.cas-group-footer::after {
+  background: #d73f09;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 50%;
+  margin-left: -50vw;
+  position: absolute;
+  width: 100vw;
+}
+.cas-group-footer .cas-group-footer__social a {
+  text-decoration: none;
+}
+.cas-group-footer p:last-child {
+  margin-bottom: 0;
+}
+.cas-group-footer ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.cas-group-footer iframe {
+  max-width: 100%;
+}
+
+.layout-builder__layout.cas-issue-menubar {
+  background-color: #d73f09;
+  margin-block: 0.75em 1.5em;
+  padding: 2px;
+}
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu li {
+  margin: 2px 0;
+  padding: 0;
+}
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a,
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link {
+  background: transparent;
+  border-radius: 0;
+  color: #fff;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  padding: 0.75em 1em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 400ms background-color ease, 400ms color ease;
+}
+@media (min-width: 768px) {
+  .layout-builder__layout.cas-issue-menubar .block-menu ul.menu a,
+  .layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link {
+    padding-inline: 1.25em;
+  }
+}
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a:hover, .layout-builder__layout.cas-issue-menubar .block-menu ul.menu a:focus, .layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.is-active, .layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.active,
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link:hover,
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link:focus,
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link.is-active,
+.layout-builder__layout.cas-issue-menubar .block-menu ul.menu a.nav-link.active {
+  background-color: #fff;
+  color: #d73f09;
+  text-decoration: none;
+}
+
+.cas-weather-table {
+  overflow-x: auto;
+}
+.cas-weather-table table {
+  font-variant-numeric: tabular-nums;
+}
+.cas-weather-table th:first-child,
+.cas-weather-table td:first-child {
+  white-space: nowrap;
+}
+
+.cas-weather-gdd {
+  color: #212529;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.layout-container .osu-table,
+.layout-container .osu-table-orange,
+.layout-container table:not(.table) {
+  font-size: 0.9rem;
+}
+.layout-container table:not(.table) {
+  height: auto !important;
+  max-width: none !important;
+}
+.layout-container table:not(.table) th,
+.layout-container table:not(.table) td {
+  height: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  overflow-wrap: normal !important;
+  width: auto !important;
+  word-break: normal !important;
+}
+.layout-container table:not(.table) th {
+  background-color: #212529 !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  line-height: inherit !important;
+}
+
+.cas-dfs-cards .views-exposed-form {
+  margin-bottom: 1.5rem;
+}
+.cas-dfs-cards .dfs-card-cell {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.dfs-card {
+  background: #fff;
+  border: 1px solid #d4cfcd;
+  border-top: 4px solid #d73f09;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.dfs-card__hero {
+  background: #212529;
+  min-height: 17.6rem;
+  position: relative;
+}
+.dfs-card__image {
+  inset: 0;
+  position: absolute;
+}
+.dfs-card__image img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.dfs-card__overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 17.6rem;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+}
+.dfs-card__title {
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.dfs-card__careers-heading {
+  color: #fff;
+}
+.dfs-card__careers ul {
+  columns: 2;
+  font-size: 0.9rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.dfs-card__careers ul li {
+  break-inside: avoid;
+}
+.dfs-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1rem 1.5rem 1.5rem;
+}
+.dfs-card__levels {
+  border-bottom: 1px solid #d4cfcd;
+  padding-bottom: 0.5rem;
+}
+.dfs-card__overview {
+  font-size: 0.95rem;
+}
+.dfs-card__more {
+  margin: auto 0 0;
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.cas-videos .views-view-responsive-grid {
+  gap: 1.25rem;
+}
+
+.cas-video-card {
+  color: inherit;
+  display: block;
+  text-decoration: none;
+}
+.cas-video-card__thumb {
+  aspect-ratio: 16/9;
+  background: #f7f5f5;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.cas-video-card__thumb img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.cas-video-card__play {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 50%;
+  height: 3rem;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+}
+.cas-video-card__play::after {
+  border-color: transparent transparent transparent #fff;
+  border-style: solid;
+  border-width: 0.6rem 0 0.6rem 1rem;
+  content: "";
+  left: 55%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.cas-video-card__title {
+  display: block;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+.cas-video-card:hover .cas-video-card__play, .cas-video-card:focus .cas-video-card__play {
+  background: #d73f09;
+}
+
+.cas-gallery-album {
+  margin-bottom: 1.5rem;
+}
+.cas-gallery-album__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.cas-gallery-album__thumbs img {
+  display: block;
+}
+
+.cas-feature-story {
+  margin-bottom: 2rem;
+}
+.cas-feature-story__image img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.cas-feature-story .fs-title {
+  margin: 0.75rem 0 0.25rem;
+}
+
+.cas-feature-page {
+  margin-bottom: 1.5rem;
+}
+.cas-feature-page__title {
+  font-size: 1.15rem;
+  margin: 0 0 0.25rem;
+}
+
+.cas-fun-fact {
+  margin-bottom: 1rem;
+}
+.cas-fun-fact__source {
+  color: #696361;
+  font-size: 0.9em;
+}
+.cas-fun-fact__image img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.cas-plant-varieties .views-view-responsive-grid {
+  gap: 1rem;
+}
+
+.cas-pvr-card {
+  border: 1px solid #d4cfcd;
+  height: 100%;
+  padding: 1rem;
+}
+.cas-pvr-card__title {
+  margin-top: 0;
+}
+
+.cas-art-artists h3 {
+  font-size: 1.15rem;
+  margin: 1.25rem 0 0.25rem;
+}
+
+.layout-builder__layout .block-views,
+.layout-builder__layout .block-cas-fun-facts,
+.layout-builder__layout .block-cas-degree-list,
+.layout-builder__layout .block-cas-content-by-term,
+.layout-builder__layout .block-cas-weather,
+.layout-builder__layout .block-cas-group-news,
+.layout-builder__layout .block-cas-group-faces {
+  width: 100%;
+}
+
+.slick--view--videos {
+  padding: 0 2.5rem;
+}
+.slick--view--videos .slick__slide {
+  padding: 0 0.6rem;
+}
+
+.slick--view--videos.unslick {
+  padding: 0;
+}
+.slick--view--videos.unslick .slick__slide {
+  display: inline-block;
+  vertical-align: top;
+  width: 33.333%;
+}
+@media (max-width: 991px) {
+  .slick--view--videos.unslick .slick__slide {
+    width: 50%;
+  }
+}
+@media (max-width: 575px) {
+  .slick--view--videos.unslick .slick__slide {
+    width: 100%;
+  }
+}
+
+.slick--view--feature-stories .cas-feature-story {
+  margin-bottom: 0;
+  position: relative;
+}
+.slick--view--feature-stories .cas-feature-story__caption {
+  background: rgba(255, 255, 255, 0.85);
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  position: absolute;
+  right: 0;
+}
+.slick--view--feature-stories .fs-title {
+  font-size: 1.15rem;
+  margin: 0 0 0.25rem;
+}
+.slick--view--feature-stories .fs-caption {
+  margin: 0;
+}
+.slick--view--feature-stories .slick-prev,
+.slick--view--feature-stories .slick-next {
+  z-index: 2;
+}
+.slick--view--feature-stories .slick-prev {
+  left: 0.5rem;
+}
+.slick--view--feature-stories .slick-next {
+  right: 0.5rem;
+}
+
+.cas-funding-opportunities td:last-child {
+  white-space: nowrap;
+}
+.cas-funding-opportunities .views-field-field-fundop-link a {
+  overflow-wrap: anywhere;
+}
+
+.cas-art-galleries .views-view-responsive-grid {
+  gap: 1.25rem;
+}
+
+.cas-art-card__image img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+.cas-art-card__title {
+  font-size: 1.05rem;
+  margin: 0.5rem 0 0.25rem;
+}
+.cas-art-card__artist, .cas-art-card__exhibit {
+  margin: 0 0 0.25rem;
+}
+.cas-art-card__exhibit {
+  color: #696361;
+  font-size: 0.9em;
+}
+
+.cas-group-social li {
+  margin-bottom: 0.35rem;
 }
 
 .layout-container .simple-styleguide--site-styles {
@@ -1400,20 +1829,51 @@ header[role=banner] {
   color: #d73f09;
 }
 
-.text-break td,
-.text-break th {
+.layout-container .osu-table,
+.layout-container .osu-table-orange,
+.layout-container table:not(.table) {
+  font-size: 0.9rem;
+}
+.layout-container table:not(.table) {
+  height: auto !important;
+  max-width: none !important;
+}
+.layout-container table:not(.table) th,
+.layout-container table:not(.table) td {
+  height: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  overflow-wrap: normal !important;
+  width: auto !important;
   word-break: normal !important;
+}
+.layout-container table:not(.table) th {
+  background-color: #212529 !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  line-height: inherit !important;
 }
 
 :where(.node--type-plant-variety-release .field) {
   margin-bottom: 0.5em;
 }
 
-:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) fieldset {
-  margin-top: 1em;
+.cas-weather-table {
+  overflow-x: auto;
 }
-:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) fieldset > .fieldset-wrapper {
-  margin-left: 2em;
+.cas-weather-table table {
+  font-variant-numeric: tabular-nums;
+}
+.cas-weather-table th:first-child,
+.cas-weather-table td:first-child {
+  white-space: nowrap;
+}
+
+.cas-weather-gdd {
+  color: #212529;
+  font-size: 2.5rem;
+  font-weight: 700;
 }
 
 :where(.node--type-weed) .field + .field {

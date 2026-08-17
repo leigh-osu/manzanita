@@ -15,4 +15,11 @@
   .faces-card__title {
     margin: 0.5rem 0 0.35rem;
   }
+
+  // 'Learn more' button to the entry; the anchor carries the shared
+  // btn cas-button-dark scheme, this wrapper just centres it.
+  .faces-card__more {
+    text-align: center;
+    margin-top: 0.6rem;
+  }
 }

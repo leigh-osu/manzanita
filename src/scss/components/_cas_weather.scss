@@ -1,13 +1,24 @@
-// Weather daily/monthly data sheets: the field_group fieldsets (Soil
-// Temperature, Air Temperature, ...) run together; give each section
-// breathing room above its legend.
-:where(.node--type-weather-daily-data, .node--type-weather-monthly-data) {
-  fieldset {
-    margin-top: 1em;
+// Weather station tables (osu_cas_weather block, weather_daily /
+// weather_monthly views). The tables themselves take the site's default
+// .osu-table look (madrone _osu_tables.scss: bordered, striped, dark
+// header); only the numeric niceties and the GDD headline live here.
+.cas-weather-table {
+  overflow-x: auto;
 
-    // The content sits indented below its legend.
-    > .fieldset-wrapper {
-      margin-left: 2em;
-    }
+  table {
+    font-variant-numeric: tabular-nums;
   }
+
+  // Dates never break across lines.
+  th:first-child,
+  td:first-child {
+    white-space: nowrap;
+  }
+}
+
+.cas-weather-gdd {
+  // D7 painted this orange; orange text is reserved for links here.
+  color: $paddletailblack;
+  font-size: 2.5rem;
+  font-weight: 700;
 }

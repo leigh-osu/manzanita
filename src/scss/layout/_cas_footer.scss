@@ -1,6 +1,15 @@
-// Footer copy runs slightly smaller than body text.
+// Footer copy runs slightly smaller than body text. overflow-x: clip keeps
+// the group footer's viewport-wide rule (see _cas_group_footer.scss) from
+// adding a horizontal scrollbar.
 footer[role='contentinfo'] {
   font-size: 0.9em;
+  overflow-x: clip;
+}
+
+// A 2px beaver-orange rule opens the footer, full-bleed; the group footer
+// draws the matching one between the group's card and the College's.
+footer[role='contentinfo'] .region-footer {
+  border-top: 2px solid $osuorange;
 }
 
 // The site-links block's Student/Employee/New Employees groups sit in

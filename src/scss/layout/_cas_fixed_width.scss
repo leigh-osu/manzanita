@@ -93,6 +93,24 @@
     margin-inline: calc(50% - 50vw);
   }
 
+  // With a sidebar (e.g. a newsletter issue menu) the content column is no
+  // longer centred on the viewport, so a 50vw bleed slides a section off the
+  // left edge and under the sidebar. Keep every band contained in the column
+  // instead -- D7's sidebar pages ran their bands column-wide too.
+  &:has(> .layout-sidebar) {
+    div:has(> .w-100 > .layout-builder__layout),
+    .background-local-video:has(.layout-builder__layout),
+    .bg-image:has(> .container > .layout-builder__layout),
+    .bg-color:has(> .container > .layout-builder__layout),
+    div:has(> .container > .layout-builder__layout .block--type-osu-menu-bar-item) {
+      margin-inline: 0;
+    }
+
+    .w-100:has(> .layout-builder__layout) {
+      max-width: none;
+    }
+  }
+
   // The Layout Builder edit UI's preview pane is not centred on the viewport
   // (off-canvas tray, admin chrome), so the 50vw bleed only causes sideways
   // scrolling there; keep sections contained while editing.
