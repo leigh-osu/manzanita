@@ -4,8 +4,17 @@ core_version_requirement: ^10 || ^11
 type: theme
 dependencies:
   - madrone:madrone
-version: '1.1.33'
+version: '1.1.34'
 base theme: madrone
+
+# What the editing area is styled with. Drupal walks the base-theme chain, so
+# madrone's dist/madrone.css already arrived here and manzanita's own CSS did
+# not -- meaning every CAS-specific style was missing inside CKEditor while
+# being present on the page. Listing it restores the front end's own pairing,
+# in the front end's order.
+ckeditor_stylesheets:
+  - css/manzanita.css
+
 logo: logo.svg
 screenshot: manzanita.png
 regions:
