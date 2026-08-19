@@ -1615,6 +1615,9 @@ header[role=banner] {
   height: auto;
 }
 
+.nav-tabs {
+  --bs-nav-tabs-link-active-border-color: transparent transparent #2e2b2a;
+}
 .nav-tabs .nav-link {
   background-color: #f7f5f5;
   color: #423e3c;
