@@ -1653,7 +1653,8 @@ header[role=banner] {
   text-decoration: none;
 }
 
-.btn.cas-button-light {
+.btn.cas-button-light,
+.btn.osu-btn-light {
   --bs-btn-bg: #f7f5f5;
   --bs-btn-border-color: #ffb500;
   --bs-btn-color: #d73f09;
@@ -1662,13 +1663,33 @@ header[role=banner] {
   --bs-btn-hover-color: #fff;
 }
 
-.btn.cas-button-dark {
+.btn.cas-button-dark,
+.btn.osu-btn-primary,
+.form-submit {
   --bs-btn-bg: #d73f09;
   --bs-btn-border-color: #ffb500;
   --bs-btn-color: #f7f5f5;
   --bs-btn-hover-bg: #f7f5f5;
   --bs-btn-hover-border-color: #ffb500;
   --bs-btn-hover-color: #d73f09;
+}
+
+.form-submit:not(.btn) {
+  border: 2px solid #ffb500;
+  border-radius: 0;
+  background-color: #d73f09;
+  color: #f7f5f5;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 0.5em;
+  padding: 0.28rem 0.75rem;
+  text-transform: uppercase;
+}
+.form-submit:not(.btn):hover, .form-submit:not(.btn):focus {
+  background-color: #f7f5f5;
+  color: #d73f09;
 }
 
 .block--type-paragraph-block .field--name-body {

@@ -46,7 +46,14 @@
 // label, reversing on rollover. Both keep the 2px Beaver-gold border, and
 // the .btn.class specificity outranks madrone's .btn-primary/-secondary
 // variants.
-.btn.cas-button-light {
+// madrone's input--submit template marks the primary action .osu-btn-primary
+// and every other submit .osu-btn-light, but its compiled CSS defines neither:
+// they arrive as inert hooks. So both fell through to the .btn default above
+// and every button on a form looked the same, leaving Save no more prominent
+// than Preview. Binding the hooks to the two CAS schemes gives a form its
+// visual centre without patching madrone or adding a class in a preprocess.
+.btn.cas-button-light,
+.btn.osu-btn-light {
   --bs-btn-bg: #{$neutral-100};
   --bs-btn-border-color: #{$luminance-400};
   --bs-btn-color: #{$osuorange};
@@ -55,11 +62,44 @@
   --bs-btn-hover-color: #{$bucktoothwhite};
 }
 
-.btn.cas-button-dark {
+// Every button that operates a form takes the dark scheme, whether or not it
+// carries .btn: Save, Apply, Reset, Add another, Remove. Buttons placed *in*
+// content are a separate thing — an editor picks light or dark there through
+// the CKEditor button plugin — so form chrome reads as one consistent
+// treatment and never competes with an author's choice.
+//
+// .form-submit is Drupal's own marker on form buttons and is never present on
+// a content button, which makes it the honest hook for the distinction.
+.btn.cas-button-dark,
+.btn.osu-btn-primary,
+.form-submit {
   --bs-btn-bg: #{$osuorange};
   --bs-btn-border-color: #{$luminance-400};
   --bs-btn-color: #{$neutral-100};
   --bs-btn-hover-bg: #{$neutral-100};
   --bs-btn-hover-border-color: #{$luminance-400};
   --bs-btn-hover-color: #{$osuorange};
+}
+
+// Form buttons frequently arrive without .btn (Drupal adds .button
+// .form-submit and nothing else), so the base appearance has to be repeated
+// for them rather than inherited.
+.form-submit:not(.btn) {
+  border: 2px solid $luminance-400;
+  border-radius: 0;
+  background-color: $osuorange;
+  color: $neutral-100;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 0.5em;
+  padding: 0.28rem 0.75rem;
+  text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    background-color: $neutral-100;
+    color: $osuorange;
+  }
 }
