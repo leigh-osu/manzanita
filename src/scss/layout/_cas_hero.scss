@@ -81,6 +81,10 @@ body.has-cas-hero {
   #madrone-primary-menu-container {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.1)) !important;
 
+    // The orange divider under the menu bar (see _cas_menus) reads harsh
+    // against the hero image; match the header's #666 divider grey instead.
+    border-bottom-color: #666;
+
     .block-superfish,
     .block-group-content-menu,
     ul,
