@@ -1,5 +1,21 @@
 // Migrated D7 paragraphs render as paragraph_block inline blocks in Layout
 // Builder sections; give their body copy breathing room inside the section.
+// Phones get a tighter 0.5em so the narrow viewport goes to the copy.
 .block--type-paragraph-block .field--name-body {
   padding: 1em;
+
+  @media (max-width: 767.98px) {
+    padding: 0.5em;
+  }
+}
+
+// Editor-made basic blocks carry no padding of their own, and inside
+// edge-to-edge sections (the cas-hero front pages, no-gutter columns)
+// their copy lands on the phone viewport's edge. Same 0.5em as above;
+// desktop stays untouched — those placements are deliberate. Scoped to
+// main so the footer's basic blocks keep their region's own spacing.
+@media (max-width: 767.98px) {
+  main .block--type-basic .field--name-body {
+    padding: 0.5em;
+  }
 }

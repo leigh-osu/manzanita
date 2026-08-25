@@ -51,9 +51,23 @@ footer[role='contentinfo'] ul {
 // column markup; widen the first (address) column from its col-md-2
 // (16.7%) to a col-md-3-equivalent 25% without editing the content.
 footer[role='contentinfo'] .footer-address {
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     flex: 0 0 auto;
     width: 25%;
+  }
+}
+
+// On phones and portrait tablets the block's bare BS5 `.col` divs split
+// the row three ways (its BS3 col-xs-* widths are ignored), squeezing the
+// columns instead of stacking them. Stack the top-level footer columns
+// full-width below lg; the min-width rules above restore the three-across
+// desktop layout. Layout stays the theme's job so the block content
+// remains freely editable. (The site-links trio inside keeps its three
+// mini-columns from 768px up — see the col-xs-4 rule above.)
+@media (max-width: 991.98px) {
+  footer[role='contentinfo'] #casfooter > .col {
+    flex: 0 0 auto;
+    width: 100%;
   }
 }
 

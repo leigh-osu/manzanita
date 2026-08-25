@@ -40,25 +40,27 @@ h1 {
 h2 {
   font-size: clamp(1.365rem, 1.365rem + 1.38vw, 2.4rem);
   font-weight: 400;
+  margin-block: 0.5rem;
 }
 
 h3 {
   font-family: "Stratum2Web", serif;
   font-size: clamp(1.295rem, 1.295rem + 0.54vw, 1.7rem);
   font-weight: 500;
+  margin-block: 0.5rem;
 }
 
 h4,
 h5 {
   font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 0.1rem;
+  margin-block: 0.2rem;
 }
 
 h6 {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.1rem;
+  margin-block: 0.2rem;
 }
 
 .osu-text-bucktoothwhite h2, .osu-text-bucktoothwhite h4, .osu-text-bucktoothwhite h6 {
@@ -562,13 +564,19 @@ footer[role=contentinfo] ul {
   padding-left: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   footer[role=contentinfo] .footer-address {
     flex: 0 0 auto;
     width: 25%;
   }
 }
 
+@media (max-width: 991.98px) {
+  footer[role=contentinfo] #casfooter > .col {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
 footer[role=contentinfo] .region-footer {
   background-image: url("../assets/cas_footer_background.webp");
   background-position: center bottom;
@@ -1690,7 +1698,17 @@ header[role=banner] {
 .block--type-paragraph-block .field--name-body {
   padding: 1em;
 }
+@media (max-width: 767.98px) {
+  .block--type-paragraph-block .field--name-body {
+    padding: 0.5em;
+  }
+}
 
+@media (max-width: 767.98px) {
+  main .block--type-basic .field--name-body {
+    padding: 0.5em;
+  }
+}
 .node--type-publications .field--name-field-pub-keywords .field__items,
 .node--type-publications .field--name-field-pub-keywords .field__item,
 .node--type-publications .field--name-field-pub-authors .field__items,
