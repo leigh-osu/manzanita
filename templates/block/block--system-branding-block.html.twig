@@ -105,6 +105,24 @@
                 {{ content.group_name_link }}
               </div>
             {% endif %}
+          {% elseif header_chain %}
+            {# Standalone site: the ownership chain from the theme settings
+               (grandparent » parent ») above the site's own linked name,
+               mirroring the agsci group-chain markup. #}
+            <div class="site-name__site-line d-flex flex-wrap align-items-baseline">
+              {% for link in header_chain %}
+                <div class="site-name__parent-unit--wrapper">
+                  {%- if link.url -%}
+                    <a class="site-name__parent-unit fs-6" href="{{ link.url }}">{{ link.title }}</a>
+                  {%- else -%}
+                    <span class="site-name__parent-unit fs-6">{{ link.title }}</span>
+                  {%- endif -%}<span class="site-name__sep">&nbsp;&raquo;</span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="site-name__group-link--wrapper">
+              {{ macros.site_link(is_front, site_name) }}
+            </div>
           {% elseif companion_logo_name == 'default' %}
             {{ macros.site_link(is_front, site_name) }}
           {% elseif companion_logo_name == 'custom-upload' %}

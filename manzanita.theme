@@ -6,6 +6,80 @@
  */
 
 /**
+ * Implements hook_form_FORM_ID_alter() for system_theme_settings.
+ *
+ * Standalone sites (landscapeplants, endophyte) have no Domain record or
+ * group to derive the header chain from, so the chain is entered here: an
+ * optional grandparent and parent line back to the part of the agsci site
+ * that owns the subproject, e.g. College of Agricultural Sciences »
+ * Department of Horticulture, above the site's own linked name.
+ */
+function manzanita_form_system_theme_settings_alter(array &$form, $form_state) {
+  $form['header_chain'] = [
+    '#type' => 'details',
+    '#title' => t('Header ownership chain'),
+    '#description' => t('Shown above the site name in the header, linking a standalone site back to the units that own it. Leave empty on the agsci multisite, where the chain comes from the Domain record and group.'),
+    '#open' => (bool) (theme_get_setting('header_parent_title') || theme_get_setting('header_grandparent_title')),
+  ];
+  $form['header_chain']['header_grandparent_title'] = [
+    '#type' => 'textfield',
+    '#title' => t('Grandparent title'),
+    '#default_value' => theme_get_setting('header_grandparent_title'),
+    '#description' => t('e.g. College of Agricultural Sciences'),
+  ];
+  $form['header_chain']['header_grandparent_url'] = [
+    '#type' => 'url',
+    '#title' => t('Grandparent link'),
+    '#default_value' => theme_get_setting('header_grandparent_url'),
+    '#description' => t('e.g. https://agsci.oregonstate.edu'),
+  ];
+  $form['header_chain']['header_parent_title'] = [
+    '#type' => 'textfield',
+    '#title' => t('Parent title'),
+    '#default_value' => theme_get_setting('header_parent_title'),
+    '#description' => t('e.g. Department of Horticulture'),
+  ];
+  $form['header_chain']['header_parent_url'] = [
+    '#type' => 'url',
+    '#title' => t('Parent link'),
+    '#default_value' => theme_get_setting('header_parent_url'),
+    '#description' => t('e.g. https://horticulture.oregonstate.edu'),
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for menu.
+ *
+ * On the agsci multisite the primary nav is a group menu, rendered by
+ * menu--group-menu.html.twig (nav-pills with CSS-driven submenus, styled in
+ * madrone's _osu_menus.scss). Standalone sites (landscapeplants, endophyte)
+ * have no groups — their nav is the plain main menu — so render it through
+ * the same template to keep the nav visually identical across the platform.
+ */
+function manzanita_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  if (($variables['menu_name'] ?? NULL) === 'main'
+    && !\Drupal::moduleHandler()->moduleExists('group_content_menu')) {
+    $suggestions[] = 'menu__group_menu';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for menu.
+ *
+ * Companion to manzanita_theme_suggestions_menu_alter(): madrone's dropdown
+ * hover/positioning JS binds to `.block-group-content-menu
+ * ul#group-content-menu.menu--level-1 li`, so a standalone site's main menu
+ * carries the same id (the class goes on the block wrapper in
+ * manzanita_preprocess_block()).
+ */
+function manzanita_preprocess_menu(array &$variables) {
+  if (($variables['menu_name'] ?? NULL) === 'main'
+    && !\Drupal::moduleHandler()->moduleExists('group_content_menu')) {
+    $variables['attributes']['id'] = 'group-content-menu';
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  *
  * Content blocks (including inline blocks placed via Layout Builder) have no
@@ -39,13 +113,42 @@ function manzanita_preprocess_block(array &$variables) {
   // name never appeared in the chain (verified against the live D7 site;
   // domain_conf never overrode site_name). The head is the site name here,
   // and the college-home link rides in site_home_url for the template.
+  // Only where the Domain module runs (the agsci multisite); the single-DB
+  // sites (landscapeplants, endophyte) keep their own site name and instead
+  // build the chain from the theme's header-ownership-chain settings.
   if (($variables['base_plugin_id'] ?? NULL) === 'system_branding_block') {
-    $variables['site_name'] = 'College of Agricultural Sciences';
-    $default = \Drupal::entityTypeManager()->getStorage('domain')->loadDefaultDomain();
-    if ($default) {
-      $variables['site_home_url'] = $default->getPath();
+    if (\Drupal::moduleHandler()->moduleExists('domain')) {
+      $variables['site_name'] = 'College of Agricultural Sciences';
+      $default = \Drupal::entityTypeManager()->getStorage('domain')->loadDefaultDomain();
+      if ($default) {
+        $variables['site_home_url'] = $default->getPath();
+      }
+      $variables['#cache']['contexts'][] = 'url.site';
     }
-    $variables['#cache']['contexts'][] = 'url.site';
+    else {
+      $chain = [];
+      foreach (['header_grandparent', 'header_parent'] as $key) {
+        $title = theme_get_setting($key . '_title');
+        if ($title !== NULL && trim((string) $title) !== '') {
+          $chain[] = [
+            'title' => trim((string) $title),
+            'url' => theme_get_setting($key . '_url') ?: NULL,
+          ];
+        }
+      }
+      if ($chain) {
+        $variables['header_chain'] = $chain;
+      }
+    }
+  }
+
+  // Standalone sites: dress the main-menu block as the group menu so
+  // madrone's nav CSS and dropdown JS (scoped to .block-group-content-menu)
+  // apply; see manzanita_theme_suggestions_menu_alter().
+  if (($variables['base_plugin_id'] ?? NULL) === 'system_menu_block'
+    && ($variables['derivative_plugin_id'] ?? NULL) === 'main'
+    && !\Drupal::moduleHandler()->moduleExists('group_content_menu')) {
+    $variables['attributes']['class'][] = 'block-group-content-menu';
   }
 
   // D7 rendered the chain on every page, front pages included (the node
