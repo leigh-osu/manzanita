@@ -70,6 +70,16 @@
     width: min(80vw, 24rem);
   }
 
+  // Madrone pins the inline form's submit to the form's right edge
+  // (position: absolute in _osu_header) — in the full-width overlay that
+  // lands it at the viewport edge, far from the input. Back into the flex
+  // row, flush against the input.
+  .header-search-block-form > .form-actions {
+    height: auto;
+    padding: 0;
+    position: static;
+  }
+
   // Square beaver-orange submit with the white magnifier, flush against
   // the input (D7's button.form-submit). !importants outrank the button's
   // bg-transparent / text-neutral-400 / fs-2 utilities from madrone's

@@ -42,6 +42,15 @@ body.has-cas-hero {
     z-index: 10;
   }
 
+  // The search overlay renders inside the header block, so the z-index 11
+  // above traps its fixed full-viewport scrim in the header's stacking
+  // context, where the menu bar (equal z-index, later in DOM) paints over
+  // it. While the overlay is open, lift the whole header context to the
+  // overlay's own level so everything sits behind it.
+  header[role='banner']:has(.cas-search-overlay:not([hidden])) {
+    z-index: 1050;
+  }
+
   // Header bar: the solid black (and the region wrapper's osu-bg utility)
   // becomes the top of the ramp. The orange brand rule on the very top edge
   // and the grey divider into the menu are kept, matching regular pages.
@@ -55,13 +64,15 @@ body.has-cas-hero {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.48)) !important;
   }
 
-  #madrone-header-container .header-search-block-form {
+  // The search block and its input paint their own full-height black boxes
+  // (invisible against the solid header on ordinary pages); let the ramp
+  // show through them here. The search overlay holds the same form classes
+  // — leave it out, or its white input goes transparent against the scrim.
+  #madrone-header-container .header-search-block-form:not(.cas-search-overlay *) {
     background-color: transparent !important;
   }
 
-  // The search input paints its own full-height black box (invisible against
-  // the solid header on ordinary pages); let the ramp show through it here.
-  .header-search-block-form input[type='search'].form-control {
+  .header-search-block-form input[type='search'].form-control:not(.cas-search-overlay *) {
     &,
     &:focus {
       background-color: transparent !important;

@@ -116,6 +116,11 @@ h6 {
   height: 3.45rem;
   width: min(80vw, 24rem);
 }
+.cas-search-overlay .header-search-block-form > .form-actions {
+  height: auto;
+  padding: 0;
+  position: static;
+}
 .cas-search-overlay .form-actions button {
   background-color: #d73f09 !important;
   border: 0;
@@ -605,16 +610,19 @@ body.has-cas-hero #madrone-breadcrumb-container {
   position: relative;
   z-index: 10;
 }
+body.has-cas-hero header[role=banner]:has(.cas-search-overlay:not([hidden])) {
+  z-index: 1050;
+}
 body.has-cas-hero header[role=banner] {
   background-color: transparent !important;
 }
 body.has-cas-hero #madrone-header-container {
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.48)) !important;
 }
-body.has-cas-hero #madrone-header-container .header-search-block-form {
+body.has-cas-hero #madrone-header-container .header-search-block-form:not(.cas-search-overlay *) {
   background-color: transparent !important;
 }
-body.has-cas-hero .header-search-block-form input[type=search].form-control, body.has-cas-hero .header-search-block-form input[type=search].form-control:focus {
+body.has-cas-hero .header-search-block-form input[type=search].form-control:not(.cas-search-overlay *), body.has-cas-hero .header-search-block-form input[type=search].form-control:not(.cas-search-overlay *):focus {
   background-color: transparent !important;
 }
 body.has-cas-hero .container-fluid:has(> #madrone-primary-menu-container) {
