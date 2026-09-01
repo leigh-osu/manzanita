@@ -1970,4 +1970,26 @@ header[role=banner] {
   margin-bottom: 0;
 }
 
+.indent-1 {
+  margin-left: 2.5rem;
+}
+
+.indent-2 {
+  margin-left: 5rem;
+}
+
+.indent-3 {
+  margin-left: 7.5rem;
+}
+
+@media (max-width: 768px) {
+  .indent-1,
+  .indent-2 {
+    margin-left: 1.5rem;
+  }
+  .indent-3 {
+    margin-left: 3rem;
+  }
+}
+
 /*# sourceMappingURL=manzanita.css.map */

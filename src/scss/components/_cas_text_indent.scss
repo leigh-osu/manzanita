@@ -1,0 +1,28 @@
+// Class-based paragraph indentation from CKEditor's indentblock plugin
+// (osu_cas_multisite_editor IndentBlock: indentClasses indent-1..3).
+// Classes instead of inline margin-left so Basic HTML filtering keeps them.
+// Collapse progressively on small screens so deep indents don't crush the
+// text column.
+
+.indent-1 {
+  margin-left: 2.5rem;
+}
+
+.indent-2 {
+  margin-left: 5rem;
+}
+
+.indent-3 {
+  margin-left: 7.5rem;
+}
+
+@media (max-width: 768px) {
+  .indent-1,
+  .indent-2 {
+    margin-left: 1.5rem;
+  }
+
+  .indent-3 {
+    margin-left: 3rem;
+  }
+}
