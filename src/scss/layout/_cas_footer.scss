@@ -6,10 +6,10 @@ footer[role='contentinfo'] {
   overflow-x: clip;
 }
 
-// A 2px beaver-orange rule opens the footer, full-bleed; the group footer
+// A 1px beaver-orange rule opens the footer, full-bleed; the group footer
 // draws the matching one between the group's card and the College's.
 footer[role='contentinfo'] .region-footer {
-  border-top: 2px solid $osuorange;
+  border-top: 1px solid $osuorange;
 }
 
 // The site-links block's Student/Employee/New Employees groups sit in

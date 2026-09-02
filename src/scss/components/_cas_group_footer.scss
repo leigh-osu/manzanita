@@ -2,7 +2,7 @@
 // group's contact card, first block in the footer region so it shares the
 // footer's ground, panorama and link treatment — one footer, the group's
 // card above the College's, as D7's unit footer sat, closed off by the
-// unit footer's 2px beaver-orange rule. The block sits inside
+// unit footer's 1px beaver-orange rule. The block sits inside
 // .madrone-footer's responsive side padding, so the rule is a pseudo-element
 // stretched to the viewport (footer clips the scrollbar-width overrun) to
 // match the full-bleed rule on the region's top edge (see _cas_footer.scss).
@@ -15,7 +15,7 @@
     background: $osuorange;
     bottom: 0;
     content: '';
-    height: 2px;
+    height: 1px;
     left: 50%;
     margin-left: -50vw;
     position: absolute;

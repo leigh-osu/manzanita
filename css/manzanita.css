@@ -205,7 +205,7 @@ h6 {
 }
 
 #madrone-primary-menu-container {
-  border-bottom: 2px solid #d73f09;
+  border-bottom: 1px solid #d73f09;
 }
 
 #madrone-primary-menu-container a,
@@ -540,7 +540,7 @@ footer[role=contentinfo] {
 }
 
 footer[role=contentinfo] .region-footer {
-  border-top: 2px solid #d73f09;
+  border-top: 1px solid #d73f09;
 }
 
 @media (min-width: 768px) {
@@ -1173,7 +1173,7 @@ header[role=banner] {
   background: #d73f09;
   bottom: 0;
   content: "";
-  height: 2px;
+  height: 1px;
   left: 50%;
   margin-left: -50vw;
   position: absolute;
