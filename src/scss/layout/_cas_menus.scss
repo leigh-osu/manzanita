@@ -94,6 +94,17 @@
   }
 }
 
+// Standalone sites (landscapeplants, endophyte) render the plain main menu,
+// whose block template (madrone's block--system-menu-block--main) wraps it
+// in <nav class="navbar navbar-expand-lg">. Bootstrap's .navbar adds 0.5rem
+// of padding above and below the links, which the agsci group-menu wrapper
+// (a plain div) does not have — drop it so the bar is the same height on
+// every site.
+nav.block-group-content-menu.navbar {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
 // Dropdown/flyout panels: beaver orange on off-white, framed on all sides
 // by a 1px border in the header-divider grey (see _cas_header). Rollover
 // inverts to off-white on orange. The ID selector matters: the dark bar

@@ -557,3 +557,39 @@ function manzanita_preprocess_field(array &$variables) {
   }
 }
 
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * madrone_preprocess_node() reads $variables['elements']['_layout_builder']
+ * without checking that it exists, so a full-page node rendered without
+ * Layout Builder (every node on a site that does not run it) logs "Undefined
+ * array key". A base theme's preprocess runs before its sub-theme's, so a
+ * plain manzanita_preprocess_node() would be too late: the guard is slotted
+ * into the registry directly ahead of madrone's function instead.
+ */
+function manzanita_theme_registry_alter(array &$theme_registry) {
+  // Every node hook, not just 'node': a registered suggestion such as
+  // node__plant__full carries its own copy of the preprocess list.
+  foreach ($theme_registry as &$info) {
+    if (empty($info['preprocess functions']) || !in_array('madrone_preprocess_node', $info['preprocess functions'], TRUE)) {
+      continue;
+    }
+    // The registry's list is not re-indexed after core de-duplicates it, so
+    // the keys are not offsets; re-index before locating madrone's function.
+    $functions = array_values($info['preprocess functions']);
+    if (!in_array('_manzanita_node_layout_builder_guard', $functions, TRUE)) {
+      array_splice($functions, array_search('madrone_preprocess_node', $functions, TRUE), 0, '_manzanita_node_layout_builder_guard');
+    }
+    $info['preprocess functions'] = $functions;
+  }
+}
+
+/**
+ * Preprocess callback: defines the Layout Builder element madrone expects.
+ *
+ * NULL is the value madrone already treats as "no layout", so nodes that do
+ * carry a layout are untouched and the rest render exactly as before.
+ */
+function _manzanita_node_layout_builder_guard(array &$variables) {
+  $variables['elements']['_layout_builder'] ??= NULL;
+}

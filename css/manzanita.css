@@ -297,6 +297,11 @@ h6 {
   color: #d73f09 !important;
 }
 
+nav.block-group-content-menu.navbar {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
 #madrone-primary-menu-container ul ul,
 .block-superfish ul ul,
 .block-group-content-menu ul ul {
